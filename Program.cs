@@ -1,7 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using PSB_HACKATHON;
+using PSB_HACKATHON.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
+builder.Services.AddDbContext<DB>(options =>
+{
+    options.UseNpgsql(connectionString);
+    options.EnableSensitiveDataLogging();
+}, ServiceLifetime.Scoped);
+builder.Services.AddScoped<ICourseRepository>();
 
 var app = builder.Build();
 
@@ -20,8 +32,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
