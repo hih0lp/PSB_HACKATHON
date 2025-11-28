@@ -3,20 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|c:\\users\\user\\source\\repos\\psb_hackathon\\ports\\headerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|solutionrelative:ports\\headerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|c:\\users\\user\\source\\repos\\psb_hackathon\\models\\headermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|solutionrelative:models\\headermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|c:\\users\\user\\source\\repos\\psb_hackathon\\interfaces\\iheaderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|solutionrelative:interfaces\\iheaderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|c:\\users\\user\\source\\repos\\psb_hackathon\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|solutionrelative:controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|c:\\users\\user\\source\\repos\\psb_hackathon\\models\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|solutionrelative:models\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|c:\\users\\user\\source\\repos\\psb_hackathon\\ports\\courserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|solutionrelative:ports\\courserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|c:\\users\\user\\source\\repos\\psb_hackathon\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|c:\\users\\user\\source\\repos\\psb_hackathon\\interfaces\\icourserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|solutionrelative:interfaces\\icourserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|c:\\users\\user\\source\\repos\\psb_hackathon\\ports\\headerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|solutionrelative:ports\\headerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|c:\\users\\user\\source\\repos\\psb_hackathon\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|c:\\users\\user\\source\\repos\\psb_hackathon\\interfaces\\iheaderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D240722D-A1C3-46BD-9218-7D699FDC9E6D}|PSB_HACKATHON.csproj|solutionrelative:interfaces\\iheaderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,8 +42,86 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserModel.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Models\\UserModel.cs",
+              "RelativeDocumentMoniker": "Models\\UserModel.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Models\\UserModel.cs",
+              "RelativeToolTip": "Models\\UserModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T22:26:07.552Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CourseRepository.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Ports\\CourseRepository.cs",
+              "RelativeDocumentMoniker": "Ports\\CourseRepository.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Ports\\CourseRepository.cs",
+              "RelativeToolTip": "Ports\\CourseRepository.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAA3wC8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T21:36:06.608Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ICourseRepository.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Interfaces\\ICourseRepository.cs",
+              "RelativeDocumentMoniker": "Interfaces\\ICourseRepository.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Interfaces\\ICourseRepository.cs",
+              "RelativeToolTip": "Interfaces\\ICourseRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T21:36:04.379Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CourseController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Controllers\\CourseController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CourseController.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Controllers\\CourseController.cs",
+              "RelativeToolTip": "Controllers\\CourseController.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAgwDIAAABiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T20:59:39.092Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HeaderModel.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Models\\HeaderModel.cs",
+              "RelativeDocumentMoniker": "Models\\HeaderModel.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Models\\HeaderModel.cs",
+              "RelativeToolTip": "Models\\HeaderModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T20:57:39.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T20:56:51.234Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
@@ -38,54 +132,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "HeaderRepository.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Ports\\HeaderRepository.cs",
               "RelativeDocumentMoniker": "Ports\\HeaderRepository.cs",
               "ToolTip": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Ports\\HeaderRepository.cs",
               "RelativeToolTip": "Ports\\HeaderRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-28T20:54:09.376Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "IHeaderRepository.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Interfaces\\IHeaderRepository.cs",
               "RelativeDocumentMoniker": "Interfaces\\IHeaderRepository.cs",
               "ToolTip": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Interfaces\\IHeaderRepository.cs",
               "RelativeToolTip": "Interfaces\\IHeaderRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-28T20:51:56.337Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CourseRepository.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Ports\\CourseRepository.cs",
-              "RelativeDocumentMoniker": "Ports\\CourseRepository.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Ports\\CourseRepository.cs",
-              "RelativeToolTip": "Ports\\CourseRepository.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAQwCoAAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-28T20:10:24.944Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\PSB_HACKATHON\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-28T20:46:38.262Z",
               "EditorCaption": ""
             }
           ]

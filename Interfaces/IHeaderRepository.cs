@@ -5,6 +5,8 @@ namespace PSB_HACKATHON.Interfaces
     public interface IHeaderRepository
     {
         public Task<HeaderModel> GetAsync(string id);
-        public Task UpdateAsync();
+        public Task UpdateAsync(HeaderModel header);
+        public Task CreateAsync(HeaderModel header);
+        public Task UpdateRangeAsync(List<HeaderModel> headerModels);
     }
 }
