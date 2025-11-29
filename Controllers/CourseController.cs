@@ -22,19 +22,19 @@ namespace PSB_HACKATHON.Controllers
             _dbContext = db;
         }
 
-        [HttpGet("/get-courses/{userId}")]
+        [HttpGet("get-courses/{userId}")]
         public async Task<IActionResult> GetCoursesByUserId(int userId)
         {
             return Json(await _courseRepository.GetByUserIdAsync(userId));
         }
 
-        [HttpPost("/create-course")]
+        [HttpPost("create-course")]
         public async Task<IActionResult> CreateCourse()
         {
             return Content(JsonSerializer.Serialize(Guid.NewGuid().ToString()));
         }
 
-        [HttpPost("/edit/{courseId}")]
+        [HttpPost("edit/{courseId}")]
         public async Task<IActionResult> EditCourse(string courseId)
         {
             var headers = await Request.ReadFromJsonAsync<List<HeaderModel>>();
