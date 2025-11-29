@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
 
 namespace PSB_HACKATHON.Controllers
@@ -14,27 +15,43 @@ namespace PSB_HACKATHON.Controllers
             _logger = logger;
         }
 
-        [HttpPost("{courseId}/{headerId}/{headerNumber}")]
-        public async Task<IActionResult> SaveDocument(string courseId, string headerId, int headerNumber)
+        [HttpPost("{courseId}")]
+        public async Task<IActionResult> SaveDocument(string courseId)
         {
             IFormFileCollection files = Request.Form.Files;
             //var imgId = Guid.NewGuid().ToString();
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, headerId, headerNumber.ToString());
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId);
+            //var filesPaths = new List<string>();
 
-            using var fileStream = new FileStream(path, FileMode.Create);
-
-            foreach (var file in files)
+            //using var fileStream = new FileStream(path, FileMode.Create);
+            try
             {
-                await file.CopyToAsync(fileStream);
-            }
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
 
-            return Json(path);
+                foreach (var file in files)
+                {
+                    var fullFilePath = Path.Combine(path, file.Name);
+                    using (var fs = new FileStream(fullFilePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fs);
+                    }
+                }
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpDelete("{courseId}/{headerId}/{headerNumber}/{imgId}")]
-        public async Task<IActionResult> DeleteDocument(string courseId, string headerId, int headerNumber, string imgId)
+        [HttpDelete("{courseId}/{headerId}/{headerNumber}/{fileName}")]
+        public async Task<IActionResult> DeleteDocument(string courseId, string headerId, int headerNumber, string fileName)
         {
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, headerId, headerNumber.ToString(), imgId);
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, headerId, headerNumber.ToString(), fileName);
 
             try
             {
@@ -48,11 +65,24 @@ namespace PSB_HACKATHON.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetFile(string path)
+        [HttpGet("{courseId}")]
+        public async Task<IActionResult> GetFiles(string courseId)
         {
-            var fileBytes = await System.IO.File.ReadAllBytesAsync(path);
-            return File(fileBytes, "application/octet-stream");
+            string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId);
+
+            if (!Directory.Exists(directoryPath))
+                return NotFound($"Директория не найдена: {directoryPath}");
+
+            var absolutePaths = Directory.GetFiles(directoryPath)
+                                        .Select(filePath => new
+                                        {
+                                            FileName = Path.GetFileName(filePath),
+                                            AbsolutePath = $"/Documents/{courseId}/{Path.GetFileName(filePath)}",
+                                            FullPath = filePath
+                                        })
+                                        .ToList();
+
+            return Json(absolutePaths);
         }
     }
 }

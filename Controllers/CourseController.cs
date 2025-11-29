@@ -5,6 +5,7 @@ using PSB_HACKATHON.Interfaces;
 using PSB_HACKATHON.Models;
 using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -18,23 +19,27 @@ namespace PSB_HACKATHON.Controllers
         //private readonly IHeaderRepository _headerRepository;
         private readonly IUserRepository _userRepository;
         private readonly ILogger<CourseController> _logger;
-        public CourseController(ICourseRepository courseRepository, ILogger<CourseController> logger, DB db, IUserRepository userRepository)
+        private readonly IConfiguration _config;
+
+        public CourseController(ICourseRepository courseRepository, ILogger<CourseController> logger, DB db, IUserRepository userRepository, IConfiguration configuration)
         {
             _courseRepository = courseRepository;
             //_headerRepository = headerRepository;
             _logger = logger;
             _dbContext = db;
             _userRepository = userRepository;
+            _config = configuration;
         }
 
         /// <summary>
-        /// Получить курсы пользователя по его айди
+        /// Получить курсы пользователя по его идентификатору
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
+        /// <param name="userId">Идентификатор пользователя</param>
+        /// <returns>Список курсов пользователя</returns>
         [HttpGet("get-courses/{userId}")]
-        [ProducesResponseType(typeof(List<CourseModel>), 200)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(typeof(List<CourseModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCoursesByUserId(int userId)
         {
             return Json(await _courseRepository.GetByUserIdAsync(userId));
@@ -45,7 +50,7 @@ namespace PSB_HACKATHON.Controllers
         /// Создать новый курс
         /// </summary>
         /// <param name="">Данные курса</param>
-        /// <returns>Созданный курс</returns>
+        /// <returns>Айди созданного курса </returns>
         [HttpPost("create-course")]
         [ProducesResponseType(typeof(CourseModel), 200)]
         [ProducesResponseType(400)]
@@ -61,18 +66,28 @@ namespace PSB_HACKATHON.Controllers
         /// <param name="courseId"></param>
         /// <returns></returns>
         [HttpPost("edit/{courseId}")]
+        [ProducesResponseType(typeof(CourseModel), 200)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> EditCourse(string courseId)
         {
-            var course = await Request.ReadFromJsonAsync<CourseModel>();
+            var courseDto = await Request.ReadFromJsonAsync<CoursesDTO>();
+            var dbCourse = await _courseRepository.GetAsync(courseId);
+
             try
             {
-                if (await _courseRepository.GetAsync(courseId) is null)
+                if (dbCourse is null)
                 {
-                    await _courseRepository.CreateAsync(course);
+                    var newCourse = new CourseModel
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Content = courseDto.Content,
+                    };
+                    await _courseRepository.CreateAsync(newCourse);
                 }
                 else
                 {
-                    await _courseRepository.UpdateAsync(course);
+                    dbCourse.Content = courseDto.Content;
+                    await _courseRepository.UpdateAsync(dbCourse);
                 }
 
                 return Ok();
@@ -80,9 +95,15 @@ namespace PSB_HACKATHON.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                throw;
+                return BadRequest(ex.Message);
             }
         }
+
+        
+            //public async Task<IActionResult> GetCourses()
+            //{
+
+            //}
 
         /// <summary>
         /// Присоединиться к курсу в качестве преподавателя
