@@ -13,7 +13,7 @@ builder.Services.AddDbContext<DB>(options =>
     options.UseNpgsql(connectionString);
     options.EnableSensitiveDataLogging();
 }, ServiceLifetime.Scoped);
-builder.Services.AddScoped<ICourseRepository>();
+//builder.Services.AddScoped<ICourseRepository>();
 
 var app = builder.Build();
 
@@ -32,8 +32,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

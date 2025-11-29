@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PSB_HACKATHON")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5668a6004c7a754b131f396b5152eb0c409aea1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("PSB_HACKATHON")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PSB_HACKATHON")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
