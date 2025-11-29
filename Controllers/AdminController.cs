@@ -22,17 +22,15 @@ namespace PSB_HACKATHON.Controllers
         {
             try
             {
-                if (await _db.Users.AnyAsync(u => u.Id == userId)) { return BadRequest("Пользователь с такой почтой уже существует"); }
+                var userRole = await _db.Users
+                    .Where(u => u.Id == userId)
+                    .Select(u => u.Role) 
+                    .FirstOrDefaultAsync();
 
-                await _db.Users.AddAsync(user);
-                int checkSave = await _db.SaveChangesAsync();
-                
-                if (checkSave > 0) { return Ok(); } 
-                else { return BadRequest("Не удалось добавить пользователя, проверьте корректность полей"); }
             }
             catch (Exception ex) 
             {
-                _logger.LogError($"Не удалось зарегестрировать пользователя с id = {user.Id}");
+                _logger.LogError($"Не удалось вернуть пользователей");
                 return StatusCode(500, $"Возникла ошибка при регистрации, попробуйте позже\n{ex}");
             }
         }
