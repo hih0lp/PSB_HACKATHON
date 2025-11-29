@@ -19,11 +19,8 @@ namespace PSB_HACKATHON.Controllers
         public async Task<IActionResult> SaveDocument(string courseId)
         {
             IFormFileCollection files = Request.Form.Files;
-            //var imgId = Guid.NewGuid().ToString();
             string path = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId);
-            //var filesPaths = new List<string>();
 
-            //using var fileStream = new FileStream(path, FileMode.Create);
             try
             {
                 if (!Directory.Exists(path))
@@ -31,6 +28,24 @@ namespace PSB_HACKATHON.Controllers
                     Directory.CreateDirectory(path);
                 }
 
+                var existingFiles = Directory.GetFiles(path)
+                    .Select(Path.GetFileName)
+                    .ToList();
+
+                var incomingFileNames = files.Select(f => f.Name).ToList();
+
+                var filesToDelete = existingFiles.Except(incomingFileNames).ToList();
+
+                foreach (var fileName in filesToDelete)
+                {
+                    var filePath = Path.Combine(path, fileName);
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                }
+
+                // Сохраняем/перезаписываем пришедшие файлы
                 foreach (var file in files)
                 {
                     var fullFilePath = Path.Combine(path, file.Name);
@@ -39,6 +54,7 @@ namespace PSB_HACKATHON.Controllers
                         await file.CopyToAsync(fs);
                     }
                 }
+
                 return Ok();
             }
             catch (Exception ex)
@@ -74,12 +90,7 @@ namespace PSB_HACKATHON.Controllers
                 return NotFound($"Директория не найдена: {directoryPath}");
 
             var absolutePaths = Directory.GetFiles(directoryPath)
-                                        .Select(filePath => new
-                                        {
-                                            FileName = Path.GetFileName(filePath),
-                                            AbsolutePath = $"/Documents/{courseId}/{Path.GetFileName(filePath)}",
-                                            FullPath = filePath
-                                        })
+                                        .Select(filePath => filePath) // Просто возвращаем полный путь
                                         .ToList();
 
             return Json(absolutePaths);
