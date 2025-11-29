@@ -96,9 +96,6 @@ namespace PSB_HACKATHON.Controllers
 
 
             course.Users.Add(user);
-            //user.Courses.Add(course);
-
-            //await _userRepository.UpdateAsync(user);
             await _courseRepository.UpdateAsync(course);
 
             return Ok();
