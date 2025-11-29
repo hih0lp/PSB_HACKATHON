@@ -17,13 +17,12 @@ namespace PSB_HACKATHON.Controllers
         }
 
         [HttpPost]
-        [Route("Auth/Register")]
-        public async Task<IActionResult> Register([FromBody] UserModel user)
+        [Route("Admin/GetUsers")]
+        public async Task<IActionResult> GetUsers( int userId)
         {
             try
             {
-                if (user == null) { return BadRequest("Пустое тело запроса"); }
-                if (await _db.Users.AnyAsync(u => u.Email == user.Email)) { return BadRequest("Пользователь с такой почтой уже существует"); }
+                if (await _db.Users.AnyAsync(u => u.Id == userId)) { return BadRequest("Пользователь с такой почтой уже существует"); }
 
                 await _db.Users.AddAsync(user);
                 int checkSave = await _db.SaveChangesAsync();
