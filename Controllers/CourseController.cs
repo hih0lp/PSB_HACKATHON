@@ -66,6 +66,8 @@ namespace PSB_HACKATHON.Controllers
         /// <param name="courseId"></param>
         /// <returns></returns>
         [HttpPost("edit/{courseId}")]
+        [ProducesResponseType(typeof(CourseModel), 200)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> EditCourse(string courseId)
         {
             var courseDto = await Request.ReadFromJsonAsync<CoursesDTO>();
@@ -93,9 +95,15 @@ namespace PSB_HACKATHON.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                throw;
+                return BadRequest(ex.Message);
             }
         }
+
+        
+            //public async Task<IActionResult> GetCourses()
+            //{
+
+            //}
 
         /// <summary>
         /// Присоединиться к курсу в качестве преподавателя
@@ -118,7 +126,5 @@ namespace PSB_HACKATHON.Controllers
 
             return Ok();
         }
-
-        
     }
 }

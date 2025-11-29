@@ -15,7 +15,7 @@ namespace PSB_HACKATHON.Controllers
             _logger = logger;
         }
 
-        [HttpPost("{courseId}/{headerId}/{headerNumber}")]
+        [HttpPost("{courseId}")]
         public async Task<IActionResult> SaveDocument(string courseId, string headerId, int headerNumber)
         {
             IFormFileCollection files = Request.Form.Files;
@@ -65,7 +65,7 @@ namespace PSB_HACKATHON.Controllers
             }
         }
 
-        [HttpGet("{courseId}/{headerId}/{headerNumber}")]
+        [HttpGet("{courseId}")]
         public async Task<IActionResult> GetFileS(string courseId, string headerId, string headerNumber)
         {
             string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, headerId, headerNumber);
