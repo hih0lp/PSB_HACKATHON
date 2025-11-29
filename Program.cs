@@ -1,3 +1,4 @@
+using ERP_Proflipper_NotificationService.Hubs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using PSB_HACKATHON;
@@ -31,8 +32,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCors(p => p.AllowCredentials().AllowAnyHeader().AllowAnyMethod());//.WithOrigins("http://localhost:5173")
+
 app.MapControllers();
 app.UseAuthorization();
+app.MapHub<NotificationsHub>("/notifications");
 
 app.MapControllerRoute(
     name: "default",

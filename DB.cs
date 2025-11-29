@@ -15,11 +15,9 @@ namespace PSB_HACKATHON
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<UserModel>()
                 .HasMany(c => c.Courses)
-                .WithOne(u => u.User)
-                .HasForeignKey(x => x.UserId);
+                .WithMany(u => u.Users);
 
             modelBuilder.Entity<CourseModel>()
                 .HasMany(t => t.Headers)
