@@ -26,7 +26,7 @@ namespace PSB_HACKATHON.Ports
 
         public async Task<CourseModel> GetAsync(string courseId)
         {
-            return _dbcontext.Courses.Include(t => t.Users).Where(x => x.Id == courseId).First();
+            return await _dbcontext.Courses.Include(t => t.Users).FirstOrDefaultAsync(x => x.Id == courseId);
         }
 
         public async Task DeleteAsync(string courseId)
