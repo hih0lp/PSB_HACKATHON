@@ -1,4 +1,4 @@
-namespace ERP_Proflipper_NotificationService.Models
+namespace PSB_HACKATHON.Models
 {
     public class NotificationModel
     {

@@ -1,11 +1,10 @@
-﻿using ERP_Proflipper_NotificationService.Hubs;
-using ERP_Proflipper_NotificationService.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
-using PSB_HACKATHON;
+using PSB_HACKATHON.NotificationHub;
+using PSB_HACKATHON.Models;
 using System.Collections.Concurrent;
 
-namespace ERP_Proflipper_NotificationService.Services
+namespace PSB_HACKATHON.Services
 {
     public class NotificationService
     {

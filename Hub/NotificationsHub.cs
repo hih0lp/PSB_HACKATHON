@@ -1,9 +1,10 @@
-﻿using ERP_Proflipper_NotificationService.Services;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using PSB_HACKATHON.Services;
+//using Microsoft.AspNetCore.SignalR;
 using System.Collections.Concurrent;
 
-namespace ERP_Proflipper_NotificationService.Hubs
+namespace PSB_HACKATHON.NotificationHub
 {
     public class NotificationsHub : Hub
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace ERP_Proflipper_NotificationService.Filters
+namespace PSB_HACKATHON.Filters
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
     public class ServiceKeyAuthAttribute : Attribute, IAuthorizationFilter

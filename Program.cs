@@ -1,49 +1,71 @@
-﻿using ERP_Proflipper_NotificationService.Hubs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.OpenApi; 
 using PSB_HACKATHON;
 using PSB_HACKATHON.Interfaces;
+using PSB_HACKATHON.NotificationHub;
 using PSB_HACKATHON.Ports;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-// ⭐️ ДОБАВЬТЕ ЭТУ СТРОКУ ДЛЯ SIGNALR ⭐️
-builder.Services.AddSignalR();
-
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+
+builder.Services.AddControllers();
+builder.Services.AddCors();
 builder.Services.AddDbContext<DB>(options =>
 {
     options.UseNpgsql(connectionString);
     options.EnableSensitiveDataLogging();
 }, ServiceLifetime.Scoped);
+
+builder.Services.AddSignalR();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
-builder.Services.AddScoped<IHeaderRepository, HeaderRepository>();
+//builder.Services.AddScoped<IHeaderRepository, HeaderRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "PSB HACKATHON API",
+        Description = "API ��� ��������������� ���������"
+    });
+
+    options.AddServer(new OpenApiServer
+    {
+        Url = "https://psbsmartedu.ru/",
+        Description = "Production API"
+    });
+
+    options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+});
+
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseCors(p => p.AllowCredentials().AllowAnyHeader().AllowAnyMethod());//.WithOrigins("http://localhost:5173")
+app.UseCors(builder => builder
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowAnyOrigin());
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "PSB HACKATHON API v1");
+    c.RoutePrefix = "swagger"; 
+});
 
 app.MapControllers();
 app.UseAuthorization();
-
-// Теперь это будет работать
 app.MapHub<NotificationsHub>("/notifications");
 
 app.MapControllerRoute(

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PSB_HACKATHON.Constants;
 using PSB_HACKATHON.Interfaces;
 using PSB_HACKATHON.Models;
+using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -14,78 +15,69 @@ namespace PSB_HACKATHON.Controllers
     {
         private readonly DB _dbContext;
         private readonly ICourseRepository _courseRepository;
-        private readonly IHeaderRepository _headerRepository;
+        //private readonly IHeaderRepository _headerRepository;
         private readonly IUserRepository _userRepository;
         private readonly ILogger<CourseController> _logger;
-        public CourseController(ICourseRepository courseRepository, IHeaderRepository headerRepository, ILogger<CourseController> logger, DB db, IUserRepository userRepository)
+        public CourseController(ICourseRepository courseRepository, ILogger<CourseController> logger, DB db, IUserRepository userRepository)
         {
             _courseRepository = courseRepository;
-            _headerRepository = headerRepository;
+            //_headerRepository = headerRepository;
             _logger = logger;
             _dbContext = db;
             _userRepository = userRepository;
         }
 
+        /// <summary>
+        /// Получить курсы пользователя по его айди
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [HttpGet("get-courses/{userId}")]
+        [ProducesResponseType(typeof(List<CourseModel>), 200)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> GetCoursesByUserId(int userId)
         {
             return Json(await _courseRepository.GetByUserIdAsync(userId));
         }
 
+
+        /// <summary>
+        /// Создать новый курс
+        /// </summary>
+        /// <param name="">Данные курса</param>
+        /// <returns>Созданный курс</returns>
         [HttpPost("create-course")]
+        [ProducesResponseType(typeof(CourseModel), 200)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> CreateCourse()
         {
             return Content(JsonSerializer.Serialize(Guid.NewGuid().ToString()));
         }
 
+
+        /// <summary>
+        /// Редактирование курса
+        /// </summary>
+        /// <param name="courseId"></param>
+        /// <returns></returns>
         [HttpPost("edit/{courseId}")]
         public async Task<IActionResult> EditCourse(string courseId)
         {
-            var headers = await Request.ReadFromJsonAsync<List<HeaderModel>>();
-            if (headers is null) return BadRequest();
+            var course = await Request.ReadFromJsonAsync<CourseModel>();
+            course.Id = Guid.NewGuid().ToString();
 
-            try
-            {
-                var existingHeaders = await _courseRepository.GetCourseHeadersAsync(courseId);
-                var currentCourse = await _courseRepository.GetAsync(courseId);
-                if (existingHeaders is null || currentCourse is null) return NotFound();
+            await _courseRepository.UpdateAsync(course);
 
-                var headersToUpdate = headers.Where(x => existingHeaders.Any(e => e.Id == x.Id));
-                var headersToCreate = headers.Where(x => !existingHeaders.Any(e => e.Id == x.Id));
-                var headersToDelete = existingHeaders.Where(x => !headers.Any(t => t.Id == x.Id));
-
-                foreach (var header in headersToUpdate)
-                {
-                    var exist = existingHeaders.First(x => x.Id == header.Id);
-                    exist.Title = header.Title;
-                    exist.Url = header.Url;
-                    exist.Number = header.Number;
-                }
-
-                foreach (var headerToCreate in headersToCreate)
-                {
-                    var newHeader = new HeaderModel
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Title = headerToCreate.Title,
-                        Course = currentCourse,
-                        CourseId = courseId,
-                        Number = headerToCreate.Number,
-                    };
-                    await _headerRepository.CreateAsync(newHeader);
-                }
-
-                await _headerRepository.UpdateRangeAsync(headersToUpdate.ToList());
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message);
-                return BadRequest();
-            }
+            return Ok();
         }
 
+        /// <summary>
+        /// Присоединиться к курсу в качестве преподавателя
+        /// </summary>
+        /// <param name="courseId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpPost("get-cooperating/{courseId}/{userId}")]
         public async Task<IActionResult> GetCooperating(string courseId, int userId)
         {
             var user = await _userRepository.GetUserAsync(userId);

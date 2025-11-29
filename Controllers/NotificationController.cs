@@ -1,16 +1,16 @@
-using ERP_Proflipper_NotificationService.Filters;
-using ERP_Proflipper_NotificationService.Hubs;
-using ERP_Proflipper_NotificationService.Models;
-using ERP_Proflipper_NotificationService.Services;
+//using ERP_Proflipper_NotificationService.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using PSB_HACKATHON;
+using PSB_HACKATHON.NotificationHub;
+using PSB_HACKATHON.Models;
+using PSB_HACKATHON.Services;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using PSB_HACKATHON.Filters;
 using System.Text.Json;
 
-namespace ERP_Proflipper_NotificationService.Controllers
+namespace PSB_HACKATHON.Controllers
 {
     public class NotificationController : Controller
     {
