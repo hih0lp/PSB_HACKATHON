@@ -48,6 +48,7 @@ namespace PSB_HACKATHON.Controllers
             }
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetFile(string path)
         {
             var fileBytes = await System.IO.File.ReadAllBytesAsync(path);
