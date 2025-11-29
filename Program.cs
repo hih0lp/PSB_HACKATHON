@@ -1,4 +1,4 @@
-using ERP_Proflipper_NotificationService.Hubs;
+﻿using ERP_Proflipper_NotificationService.Hubs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using PSB_HACKATHON;
@@ -9,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// ⭐️ ДОБАВЬТЕ ЭТУ СТРОКУ ДЛЯ SIGNALR ⭐️
+builder.Services.AddSignalR();
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DB>(options =>
 {
@@ -38,6 +42,8 @@ app.UseCors(p => p.AllowCredentials().AllowAnyHeader().AllowAnyMethod());//.With
 
 app.MapControllers();
 app.UseAuthorization();
+
+// Теперь это будет работать
 app.MapHub<NotificationsHub>("/notifications");
 
 app.MapControllerRoute(
