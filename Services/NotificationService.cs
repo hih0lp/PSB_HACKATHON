@@ -88,7 +88,7 @@ namespace PSB_HACKATHON.Services
             }
         }
 
-        private HttpContent CreateContentWithURI(string message, string redirectURI)
+        public HttpContent CreateContentWithURI(string message, string redirectURI)
         {
             var notificationJSON = JsonSerializer.Serialize(new
             {
@@ -103,7 +103,7 @@ namespace PSB_HACKATHON.Services
             return content;
         }
 
-        private HttpContent CreateContentWithoutURI(string message)
+        public HttpContent CreateContentWithoutURI(string message)
         {
             var notificationJSON = JsonSerializer.Serialize(new
             {

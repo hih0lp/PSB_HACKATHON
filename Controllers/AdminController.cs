@@ -1,18 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PSB_HACKATHON.Models;
-using PSB_HACKATHON.Requests;
+using PSB_HACKATHON.Services;
+using PSB_HACKATHON.Controllers;
 
 namespace PSB_HACKATHON.Controllers
 {
     public class AdminController : Controller
     {
         private readonly DB _db;
+        private readonly NotificationService _notification;
         private ILogger<AdminController> _logger;
 
-        public AdminController(DB db, ILogger<AdminController> logger)
+        public AdminController(DB db, NotificationService notification, ILogger<AdminController> logger)
         {
             _db = db;
+            _notification = notification;
             _logger = logger;
         }
 
@@ -59,6 +61,9 @@ namespace PSB_HACKATHON.Controllers
                 if (user == null) { return NotFound("Пользователь не найден."); }
                 user.Role = "teacher";
                 await _db.SaveChangesAsync();
+
+                var message = _notification.CreateContentWithoutURI("Вам выдана новая роль: \"Преподаватель\"");
+
 
                 return Ok();
             }
