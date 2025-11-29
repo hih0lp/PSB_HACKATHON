@@ -51,7 +51,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseCors(p => p.AllowCredentials().AllowAnyHeader().AllowAnyMethod());//.WithOrigins("http://localhost:5173")
+app.UseCors(builder => builder
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowAnyOrigin());
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
