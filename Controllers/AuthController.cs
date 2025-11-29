@@ -24,6 +24,7 @@ namespace PSB_HACKATHON.Controllers
             {
                 if (user == null) { return BadRequest("Пустое тело запроса"); }
                 if (await _db.Users.AnyAsync(u => u.Email == user.Email)) { return BadRequest("Пользователь с такой почтой уже существует"); }
+                if (await _db.Users.AnyAsync(u => u.Login == user.Login)) { return BadRequest("Пользователь с таким логином уже существует"); }
 
                 await _db.Users.AddAsync(user);
                 int checkSave = await _db.SaveChangesAsync();
@@ -54,7 +55,12 @@ namespace PSB_HACKATHON.Controllers
                     return BadRequest("Неверный логин или пароль, попробуйте снова");
                 }
 
-                return Ok(new { message = "Успешная авторизация" });
+                string userRole = await _db.Users
+                    .Where(u => u.Login == user.Login)
+                    .Select(u => u.Role)
+                    .FirstOrDefaultAsync();
+
+                return Ok(new { role = userRole});
             }
             catch (Exception ex)
             {

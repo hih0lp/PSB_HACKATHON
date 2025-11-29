@@ -30,7 +30,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Version = "v1",
         Title = "PSB HACKATHON API",
-        Description = "API для образовательной платформы"
+        Description = "API пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ"
     });
 
     options.AddServer(new OpenApiServer
