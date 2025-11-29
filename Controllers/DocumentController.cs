@@ -90,12 +90,7 @@ namespace PSB_HACKATHON.Controllers
                 return NotFound($"Директория не найдена: {directoryPath}");
 
             var absolutePaths = Directory.GetFiles(directoryPath)
-                                        .Select(filePath => new
-                                        {
-                                            FileName = Path.GetFileName(filePath),
-                                            AbsolutePath = $"/Documents/{courseId}/{Path.GetFileName(filePath)}",
-                                            FullPath = filePath
-                                        })
+                                        .Select(filePath => filePath) // Просто возвращаем полный путь
                                         .ToList();
 
             return Json(absolutePaths);
