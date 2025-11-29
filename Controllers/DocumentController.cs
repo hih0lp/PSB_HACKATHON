@@ -28,11 +28,10 @@ namespace PSB_HACKATHON.Controllers
                     Directory.CreateDirectory(path);
                 }
 
+                var incomingFileNames = files.Select(f => f.FileName).ToList();
                 var existingFiles = Directory.GetFiles(path)
                     .Select(Path.GetFileName)
                     .ToList();
-
-                var incomingFileNames = files.Select(f => f.Name).ToList();
 
                 var filesToDelete = existingFiles.Except(incomingFileNames).ToList();
 
@@ -45,14 +44,17 @@ namespace PSB_HACKATHON.Controllers
                     }
                 }
 
-                // Сохраняем/перезаписываем пришедшие файлы
                 foreach (var file in files)
                 {
-                    var fullFilePath = Path.Combine(path, file.FileName);
+                    var fileName = Path.GetFileName(file.FileName); 
+                    var fullFilePath = Path.Combine(path, fileName);
+
                     using (var fs = new FileStream(fullFilePath, FileMode.Create))
                     {
                         await file.CopyToAsync(fs);
                     }
+
+                    _logger.LogInformation("Сохранен файл: {FileName}", fileName);
                 }
 
                 return Ok();
