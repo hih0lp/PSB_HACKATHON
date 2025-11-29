@@ -12,6 +12,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 
 builder.Services.AddControllers();
+builder.Services.AddCors();
 builder.Services.AddDbContext<DB>(options =>
 {
     options.UseNpgsql(connectionString);
