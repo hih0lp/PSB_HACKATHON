@@ -17,6 +17,7 @@ builder.Services.AddDbContext<DB>(options =>
 }, ServiceLifetime.Scoped);
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IHeaderRepository, HeaderRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PSB_HACKATHON.Constants;
 using PSB_HACKATHON.Interfaces;
 using PSB_HACKATHON.Models;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -13,13 +15,15 @@ namespace PSB_HACKATHON.Controllers
         private readonly DB _dbContext;
         private readonly ICourseRepository _courseRepository;
         private readonly IHeaderRepository _headerRepository;
+        private readonly IUserRepository _userRepository;
         private readonly ILogger<CourseController> _logger;
-        public CourseController(ICourseRepository courseRepository, IHeaderRepository headerRepository, ILogger<CourseController> logger, DB db)
+        public CourseController(ICourseRepository courseRepository, IHeaderRepository headerRepository, ILogger<CourseController> logger, DB db, IUserRepository userRepository)
         {
             _courseRepository = courseRepository;
             _headerRepository = headerRepository;
             _logger = logger;
             _dbContext = db;
+            _userRepository = userRepository;
         }
 
         [HttpGet("get-courses/{userId}")]
@@ -80,6 +84,24 @@ namespace PSB_HACKATHON.Controllers
                 _logger.LogError(ex.Message);
                 return BadRequest();
             }
+        }
+
+        public async Task<IActionResult> GetCooperating(string courseId, int userId)
+        {
+            var user = await _userRepository.GetUserAsync(userId);
+            var course = await _courseRepository.GetAsync(courseId);
+
+            if (user == null || course == null) return NotFound();
+            if (user.Role != UserConsts.USER_ROLE_TUTOR) return Forbid();
+
+
+            course.Users.Add(user);
+            //user.Courses.Add(course);
+
+            //await _userRepository.UpdateAsync(user);
+            await _courseRepository.UpdateAsync(course);
+
+            return Ok();
         }
     }
 }
