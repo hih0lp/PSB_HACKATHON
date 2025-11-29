@@ -9,5 +9,6 @@ namespace PSB_HACKATHON
 
         public DbSet<CourseModel> Courses { get; set; }
         public DbSet<HeaderModel> Headers { get; set; }
+        public DbSet<UserModel> Users { get; set; }
     }
 }
