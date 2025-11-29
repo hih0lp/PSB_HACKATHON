@@ -20,15 +20,34 @@ namespace PSB_HACKATHON.Controllers
             IFormFileCollection files = Request.Form.Files;
             //var imgId = Guid.NewGuid().ToString();
             string path = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, headerId, headerNumber.ToString());
+            var filesPaths = new List<string>();
 
-            using var fileStream = new FileStream(path, FileMode.Create);
-
-            foreach (var file in files)
+            //using var fileStream = new FileStream(path, FileMode.Create);
+            try
             {
-                await file.CopyToAsync(fileStream);
-            }
 
-            return Json(path);
+                foreach (var file in files)
+                {
+                    var fullFilePath = Path.Combine(path, file.Name);
+                    using (var fs = new FileStream(fullFilePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fs);
+                        //filesPaths.Add(fullFilePath);
+                    }
+                }
+
+                foreach (var p in Directory.GetFiles(path).Select(Path.GetFileName).ToList())
+                {
+                    filesPaths.Add(p);
+                }
+
+                return Json(filesPaths);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{courseId}/{headerId}/{headerNumber}/{imgId}")]

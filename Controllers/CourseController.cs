@@ -28,13 +28,14 @@ namespace PSB_HACKATHON.Controllers
         }
 
         /// <summary>
-        /// Получить курсы пользователя по его айди
+        /// Получить курсы пользователя по его идентификатору
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
+        /// <param name="userId">Идентификатор пользователя</param>
+        /// <returns>Список курсов пользователя</returns>
         [HttpGet("get-courses/{userId}")]
-        [ProducesResponseType(typeof(List<CourseModel>), 200)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(typeof(List<CourseModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCoursesByUserId(int userId)
         {
             return Json(await _courseRepository.GetByUserIdAsync(userId));
@@ -45,7 +46,7 @@ namespace PSB_HACKATHON.Controllers
         /// Создать новый курс
         /// </summary>
         /// <param name="">Данные курса</param>
-        /// <returns>Созданный курс</returns>
+        /// <returns>Айди созданного курса </returns>
         [HttpPost("create-course")]
         [ProducesResponseType(typeof(CourseModel), 200)]
         [ProducesResponseType(400)]
