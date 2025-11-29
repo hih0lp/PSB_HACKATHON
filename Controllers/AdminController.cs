@@ -9,12 +9,14 @@ namespace PSB_HACKATHON.Controllers
     {
         private readonly DB _db;
         private readonly NotificationService _notification;
+        private readonly NotificationController _notificationController;
         private ILogger<AdminController> _logger;
 
-        public AdminController(DB db, NotificationService notification, ILogger<AdminController> logger)
+        public AdminController(DB db, NotificationService notification, NotificationController notificationController, ILogger<AdminController> logger)
         {
             _db = db;
             _notification = notification;
+            _notificationController = notificationController;
             _logger = logger;
         }
 
@@ -63,8 +65,7 @@ namespace PSB_HACKATHON.Controllers
                 await _db.SaveChangesAsync();
 
                 var message = _notification.CreateContentWithoutURI("Вам выдана новая роль: \"Преподаватель\"");
-
-
+          //      _notificationController.SendToUser(user.Login, );
                 return Ok();
             }
             catch (Exception ex)
