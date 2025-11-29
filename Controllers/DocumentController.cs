@@ -16,11 +16,11 @@ namespace PSB_HACKATHON.Controllers
         }
 
         [HttpPost("{courseId}")]
-        public async Task<IActionResult> SaveDocument(string courseId, string headerId, int headerNumber)
+        public async Task<IActionResult> SaveDocument(string courseId)
         {
             IFormFileCollection files = Request.Form.Files;
             //var imgId = Guid.NewGuid().ToString();
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, headerId, headerNumber.ToString());
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId);
             //var filesPaths = new List<string>();
 
             //using var fileStream = new FileStream(path, FileMode.Create);
@@ -66,9 +66,9 @@ namespace PSB_HACKATHON.Controllers
         }
 
         [HttpGet("{courseId}")]
-        public async Task<IActionResult> GetFileS(string courseId, string headerId, string headerNumber)
+        public async Task<IActionResult> GetFiles(string courseId)
         {
-            string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, headerId, headerNumber);
+            string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId);
 
             if (!Directory.Exists(directoryPath))
                 return NotFound($"Директория не найдена: {directoryPath}");
@@ -77,7 +77,7 @@ namespace PSB_HACKATHON.Controllers
                                         .Select(filePath => new
                                         {
                                             FileName = Path.GetFileName(filePath),
-                                            AbsolutePath = $"/Documents/{courseId}/{headerId}/{headerNumber}/{Path.GetFileName(filePath)}",
+                                            AbsolutePath = $"/Documents/{courseId}/{Path.GetFileName(filePath)}",
                                             FullPath = filePath
                                         })
                                         .ToList();
