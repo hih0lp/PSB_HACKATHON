@@ -10,6 +10,6 @@ namespace PSB_HACKATHON.Interfaces
         public Task<CourseModel> GetAsync(string courseId);
         public Task<List<CourseModel>> GetByUserIdAsync(int userId);
         public Task<List<HeaderModel>> GetCourseHeadersAsync(string courseId);
-        public async Task<>
+        //public async Task<>
     }
 }

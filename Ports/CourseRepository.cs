@@ -1,4 +1,5 @@
-﻿using PSB_HACKATHON.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using PSB_HACKATHON.Interfaces;
 using PSB_HACKATHON.Models;
 
 namespace PSB_HACKATHON.Ports
@@ -25,7 +26,7 @@ namespace PSB_HACKATHON.Ports
 
         public async Task<CourseModel> GetAsync(string courseId)
         {
-            return _dbcontext.Courses.Where(x => x.Id == courseId).First();
+            return _dbcontext.Courses.Include(t => t.Users).Include(h => h.Headers).Where(x => x.Id == courseId).First();
         }
 
         public async Task DeleteAsync(string courseId)
@@ -37,7 +38,7 @@ namespace PSB_HACKATHON.Ports
 
         public async Task<List<CourseModel>> GetByUserIdAsync(int userId)
         {
-            return _dbcontext.Courses.Where(x => x.UserId == userId).ToList();
+            return await _dbcontext.Courses.Include(u => u.Users).Include(c => c.Headers).Where(x => x.Users.Any(u => u.Id == userId)).ToListAsync();
         }
 
         public async Task<List<HeaderModel>> GetCourseHeadersAsync(string courseId)

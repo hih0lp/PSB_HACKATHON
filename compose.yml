@@ -1,0 +1,9 @@
+services:
+    main_app:
+        image: main
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: hackathon_app
+        ports:
+            - "8080:8080"
