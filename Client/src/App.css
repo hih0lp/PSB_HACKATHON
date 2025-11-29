@@ -1,0 +1,8 @@
+.basePage{
+  width: calc(100%-280px);
+  height: 100%;
+  /* display: flex;
+  flex-direction: column; */
+  margin-left: 280px;
+  padding: 20px 3%;
+}

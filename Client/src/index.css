@@ -1,0 +1,56 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: SegoeUI, 'SegoeUI';
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+#root{
+    width: 100%;
+    height: 100%;
+}
+
+body{
+    overflow-x: auto;
+    min-width: 100%;
+    width: 100%;
+    min-height: 100%;
+    height: 100%;
+    background-color: #F9FAFC;
+    /* display: flex;
+    justify-content: flex-start;
+    align-items: flex-start; */
+}
+
+
+@font-face {
+    font-family: 'SegoeUI';
+    src: url('./assets/Fonts/SegoeUI/SegoeUI.eot') format('eot'),
+         url('./assets/Fonts/SegoeUI/SegoeUI.woff') format('woff'),
+         url('./assets/Fonts/SegoeUI/SegoeUI.ttf') format('truetype');
+    font-weight: 400; 
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Actor';
+    src: url('./assets/Fonts/Actor/Actor-Regular.eot') format('eot'),
+         url('./assets/Fonts/Actor/Actor-Regular.woff') format('woff'),
+         url('./assets/Fonts/Actor/Actor-Regular.woff2') format('woff2'),
+         url('./assets/Fonts/Actor/Actor-Regular.ttf') format('truetype');
+    font-weight: 400; 
+    font-style: normal;
+    font-display: swap;
+}
+
+
+

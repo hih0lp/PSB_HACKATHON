@@ -1,0 +1,231 @@
+.accountPage{
+    width: 100%;
+    padding: 20px 0;   
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+.accountPage section{
+    background-color:#fff;
+    border-radius: 15px;
+    /* border: 1px solid #; */
+    box-shadow: 2px 2px 6px #00000030;
+    padding: 10px 20px;
+}
+
+.accountPage section header{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    gap:10px;
+}
+.accountPage section header span{
+    font-size: 24px;   
+    
+}
+
+.accountPage section header .blueText{
+    color: #2563EB;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.accountPage section .deadlineList {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    gap: 10px;
+}
+
+.accountPage section .deadlineList li{
+    width: 100%;
+    min-height: 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+}
+
+.accountPage section .deadlineList li .textNImgBlock{
+    width: 80%;
+    gap: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.accountPage section .deadlineList li .textNImgBlock span{
+    margin: 5px 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.accountPage section .deadlineList li .textNImgBlock p{
+    color: #9CA3AF;
+}
+
+.accountPage section .deadlineList li .timerNButtonBlock{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.accountPage section .deadlineList li .timerNButtonBlock button{
+    padding: 10px 20px;
+    background-color: #2563EB;
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.accountPage section .deadlineList li .timerNButtonBlock span{
+    color: #F73737;
+    font-weight: bold;
+}
+
+.accountPage section .notificationBlock{
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    padding: 30px 0;
+    flex-direction: column;
+
+}
+.accountPage section .notificationBlock li{
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    /* height: 100px;
+    background-color:#F73737; */
+}
+.accountPage section .notificationBlock li span{
+    font-weight: 600;
+    font-size: 18px;
+    /* margin-bottom: px; */
+}
+
+.accountPage section .tilesBlock .tile .progress-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.accountPage section .tilesBlock .tile .progress-bar {
+  width: 100%;
+  height: 12px;
+  background-color: #E5E7EB;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.accountPage section .tilesBlock .tile .progress {
+  height: 100%;
+  background: linear-gradient(to right, #79f74351, #79F743);
+  border-radius: 12px;
+  transition: width 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
+
+.accountPage section .tilesBlock .tile .progress-text {
+  color: white;
+  font-size: 10px !important;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.accountPage section .tilesBlock{
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.accountPage section .tilesBlock .tile{
+    width: 45%;
+    min-width: 250px;
+    border-radius: 13px;
+    border: solid 1px #E5E7EB;
+    aspect-ratio: 1;
+    
+}
+.accountPage section .tilesBlock .tile .logoPart{
+    height: 100px;
+    border-radius: 13px;
+    padding: 10px 20px ;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #2563EB;
+}
+.accountPage section .tilesBlock .tile .tileBase{
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+.accountPage section .tilesBlock .tile .tileBase span{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.accountPage section .tilesBlock .tile .tileBase .textBlock{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.accountPage section .tilesBlock .tile .tileBase footer button{
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 7px;
+    color: #fff;
+    background-color: #2563EB;
+    border: 0;
+}
+.accountPage section .tilesBlock .tile .tileBase footer span{
+    font-size: 14px;
+}
+
+.accountPage section .statsBlock{
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.accountPage section .statsBlock div{
+    width: 40%;
+    border: solid 1px #E5E7EB;
+    border-radius: 12px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.accountPage section .statsBlock div .state{
+    font-size: clamp(24px, 1.8dvw, 30px);
+    font-weight: 600;
+    color: #2563EB;
+}
+
+.accountPage section .statsBlock div .description{
+    font-weight: 600;
+}
