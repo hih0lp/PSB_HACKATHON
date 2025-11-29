@@ -32,7 +32,7 @@ builder.Services.AddSwaggerGen(options =>
 
     options.AddServer(new OpenApiServer
     {
-        Url = "https://api.ваш-домен.ru",
+        Url = "https://psbsmartedu.ru/",
         Description = "Production API"
     });
 });
