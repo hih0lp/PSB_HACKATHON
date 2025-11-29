@@ -21,11 +21,15 @@ namespace PSB_HACKATHON.Controllers
             IFormFileCollection files = Request.Form.Files;
             //var imgId = Guid.NewGuid().ToString();
             string path = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, headerId, headerNumber.ToString());
-            var filesPaths = new List<string>();
+            //var filesPaths = new List<string>();
 
             //using var fileStream = new FileStream(path, FileMode.Create);
             try
             {
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
 
                 foreach (var file in files)
                 {
@@ -33,13 +37,9 @@ namespace PSB_HACKATHON.Controllers
                     using (var fs = new FileStream(fullFilePath, FileMode.Create))
                     {
                         await file.CopyToAsync(fs);
-                        //filesPaths.Add(fullFilePath);
                     }
                 }
-
-                
-
-                return Json(filesPaths);
+                return Ok();
             }
             catch (Exception ex)
             {
