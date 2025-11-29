@@ -48,7 +48,7 @@ namespace PSB_HACKATHON.Controllers
                 // Сохраняем/перезаписываем пришедшие файлы
                 foreach (var file in files)
                 {
-                    var fullFilePath = Path.Combine(path, file.Name);
+                    var fullFilePath = Path.Combine(path, file.FileName);
                     using (var fs = new FileStream(fullFilePath, FileMode.Create))
                     {
                         await file.CopyToAsync(fs);
