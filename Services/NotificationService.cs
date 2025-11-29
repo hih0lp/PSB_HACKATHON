@@ -1,21 +1,23 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using ERP_Proflipper_NotificationService.Hubs;
-using System.Collections.Concurrent;
+﻿using ERP_Proflipper_NotificationService.Hubs;
 using ERP_Proflipper_NotificationService.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
+using PSB_HACKATHON;
+using System.Collections.Concurrent;
 
 namespace ERP_Proflipper_NotificationService.Services
 {
     public class NotificationService
     {
         private readonly IHubContext<NotificationsHub> _hubContext;
-        private readonly NotificationContext _db = new();
+        private readonly DB _db;
         private readonly ConcurrentDictionary<string, List<NotificationModel>> _pendingNotifications = new();
         private readonly ILogger<NotificationService> _logger;
-        public NotificationService(IHubContext<NotificationsHub> hubContext, ILogger<NotificationService> logger)
+        public NotificationService(IHubContext<NotificationsHub> hubContext, ILogger<NotificationService> logger, DB db)
         {
             _hubContext = hubContext;
             _logger = logger;
+            _db = db;
         }
 
         public async Task SendNotificationsAsync(string userLogin, NotificationModel notification)
