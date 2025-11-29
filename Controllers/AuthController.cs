@@ -18,7 +18,7 @@ namespace PSB_HACKATHON.Controllers
 
         [HttpPost]
         [Route("Auth/Register")]
-        public async Task<IActionResult> Register([FromBody] UserModel user)
+        public async Task<IActionResult> Register([FromBody] RegRequest user)
         {
             try
             {
@@ -26,7 +26,13 @@ namespace PSB_HACKATHON.Controllers
                 if (await _db.Users.AnyAsync(u => u.Email == user.Email)) { return BadRequest("Пользователь с такой почтой уже существует"); }
                 if (await _db.Users.AnyAsync(u => u.Login == user.Login)) { return BadRequest("Пользователь с таким логином уже существует"); }
 
-                await _db.Users.AddAsync(user);
+                var res = new UserModel
+                {
+                    Login = user.Login,
+                    Email = user.Email,
+                    Password = user.Password,
+                };
+                await _db.Users.AddAsync(res);
                 int checkSave = await _db.SaveChangesAsync();
                 
                 if (checkSave > 0) { return Ok(); } 
@@ -34,7 +40,7 @@ namespace PSB_HACKATHON.Controllers
             }
             catch (Exception ex) 
             {
-                _logger.LogError($"Не удалось зарегестрировать пользователя с id = {user.Id}");
+                _logger.LogError($"Не удалось зарегестрировать пользователя");
                 return StatusCode(500, $"Возникла ошибка при регистрации, попробуйте позже\n{ex}");
             }
         }
