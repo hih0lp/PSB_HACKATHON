@@ -2,18 +2,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using PSB_HACKATHON;
 using PSB_HACKATHON.Interfaces;
+using PSB_HACKATHON.Ports;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DB>(options =>
 {
     options.UseNpgsql(connectionString);
     options.EnableSensitiveDataLogging();
 }, ServiceLifetime.Scoped);
-//builder.Services.AddScoped<ICourseRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IHeaderRepository, HeaderRepository>();
 
 var app = builder.Build();
 
@@ -29,7 +31,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.MapControllers();
 app.UseAuthorization();
 
 app.MapControllerRoute(
