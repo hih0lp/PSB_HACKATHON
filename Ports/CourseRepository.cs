@@ -26,7 +26,7 @@ namespace PSB_HACKATHON.Ports
 
         public async Task<CourseModel> GetAsync(string courseId)
         {
-            return _dbcontext.Courses.Include(t => t.Users).Include(h => h.Headers).Where(x => x.Id == courseId).First();
+            return _dbcontext.Courses.Include(t => t.Users).Where(x => x.Id == courseId).First();
         }
 
         public async Task DeleteAsync(string courseId)
@@ -38,12 +38,12 @@ namespace PSB_HACKATHON.Ports
 
         public async Task<List<CourseModel>> GetByUserIdAsync(int userId)
         {
-            return await _dbcontext.Courses.Include(u => u.Users).Include(c => c.Headers).Where(x => x.Users.Any(u => u.Id == userId)).ToListAsync();
+            return await _dbcontext.Courses.Include(u => u.Users).Where(x => x.Users.Any(u => u.Id == userId)).ToListAsync();
         }
 
-        public async Task<List<HeaderModel>> GetCourseHeadersAsync(string courseId)
-        {
-            return _dbcontext.Headers.Where(x => x.CourseId == courseId).ToList();
-        }
+        //public async Task<List<HeaderModel>> GetCourseHeadersAsync(string courseId)
+        //{
+        //    return _dbcontext.Headers.Where(x => x.CourseId == courseId).ToList();
+        //}
     }
 }

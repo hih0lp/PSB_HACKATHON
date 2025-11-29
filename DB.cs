@@ -1,5 +1,4 @@
-﻿using ERP_Proflipper_NotificationService.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PSB_HACKATHON.Models;
 
 namespace PSB_HACKATHON

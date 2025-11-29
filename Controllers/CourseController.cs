@@ -15,13 +15,13 @@ namespace PSB_HACKATHON.Controllers
     {
         private readonly DB _dbContext;
         private readonly ICourseRepository _courseRepository;
-        private readonly IHeaderRepository _headerRepository;
+        //private readonly IHeaderRepository _headerRepository;
         private readonly IUserRepository _userRepository;
         private readonly ILogger<CourseController> _logger;
-        public CourseController(ICourseRepository courseRepository, IHeaderRepository headerRepository, ILogger<CourseController> logger, DB db, IUserRepository userRepository)
+        public CourseController(ICourseRepository courseRepository, ILogger<CourseController> logger, DB db, IUserRepository userRepository)
         {
             _courseRepository = courseRepository;
-            _headerRepository = headerRepository;
+            //_headerRepository = headerRepository;
             _logger = logger;
             _dbContext = db;
             _userRepository = userRepository;
