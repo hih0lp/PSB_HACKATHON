@@ -7,6 +7,7 @@
         public string Title { get; set; }
         public string Url { get; set; }
         public string CourseId { get; set; }
+        public bool IsRequired { get; set; }
         public CourseModel Course { get; set; } 
     }
 }

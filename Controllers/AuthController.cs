@@ -17,8 +17,8 @@ namespace PSB_HACKATHON.Controllers
         }
 
         [HttpPost]
-        [Route("Auth/Registr")]
-        public async Task<IActionResult> Registr([FromBody] UserModel user)
+        [Route("Auth/Register")]
+        public async Task<IActionResult> Register([FromBody] UserModel user)
         {
             try
             {
