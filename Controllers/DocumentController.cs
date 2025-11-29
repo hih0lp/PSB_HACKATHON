@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
 
 namespace PSB_HACKATHON.Controllers
@@ -36,10 +37,7 @@ namespace PSB_HACKATHON.Controllers
                     }
                 }
 
-                foreach (var p in Directory.GetFiles(path).Select(Path.GetFileName).ToList())
-                {
-                    filesPaths.Add(p);
-                }
+                
 
                 return Json(filesPaths);
             }
@@ -50,10 +48,10 @@ namespace PSB_HACKATHON.Controllers
             }
         }
 
-        [HttpDelete("{courseId}/{headerId}/{headerNumber}/{imgId}")]
-        public async Task<IActionResult> DeleteDocument(string courseId, string headerId, int headerNumber, string imgId)
+        [HttpDelete("{courseId}/{headerId}/{headerNumber}/{fileName}")]
+        public async Task<IActionResult> DeleteDocument(string courseId, string headerId, int headerNumber, string fileName)
         {
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, headerId, headerNumber.ToString(), imgId);
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, headerId, headerNumber.ToString(), fileName);
 
             try
             {
@@ -67,11 +65,24 @@ namespace PSB_HACKATHON.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetFile(string path)
+        [HttpGet("{courseId}/{headerId}/{headerNumber}")]
+        public async Task<IActionResult> GetFileS(string courseId, string headerId, string headerNumber)
         {
-            var fileBytes = await System.IO.File.ReadAllBytesAsync(path);
-            return File(fileBytes, "application/octet-stream");
+            string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, headerId, headerNumber);
+
+            if (!Directory.Exists(directoryPath))
+                return NotFound($"Директория не найдена: {directoryPath}");
+
+            var absolutePaths = Directory.GetFiles(directoryPath)
+                                        .Select(filePath => new
+                                        {
+                                            FileName = Path.GetFileName(filePath),
+                                            AbsolutePath = $"/Documents/{courseId}/{headerId}/{headerNumber}/{Path.GetFileName(filePath)}",
+                                            FullPath = filePath
+                                        })
+                                        .ToList();
+
+            return Json(absolutePaths);
         }
     }
 }

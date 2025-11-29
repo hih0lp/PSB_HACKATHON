@@ -20,7 +20,7 @@ builder.Services.AddDbContext<DB>(options =>
 }, ServiceLifetime.Scoped);
 
 builder.Services.AddSignalR();
-builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddTransient<ICourseRepository, CourseRepository>();
 //builder.Services.AddScoped<IHeaderRepository, HeaderRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
