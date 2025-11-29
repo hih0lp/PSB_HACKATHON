@@ -65,9 +65,10 @@ namespace PSB_HACKATHON.Controllers
         public async Task<IActionResult> EditCourse(string courseId)
         {
             var course = await Request.ReadFromJsonAsync<CourseModel>();
+            var dbCourse = await _courseRepository.GetAsync(courseId);
             try
             {
-                if (await _courseRepository.GetAsync(courseId) is null)
+                if (dbCourse is null)
                 {
                     await _courseRepository.CreateAsync(course);
                 }
