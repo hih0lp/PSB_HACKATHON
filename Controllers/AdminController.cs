@@ -58,7 +58,7 @@ namespace PSB_HACKATHON.Controllers
             try
             {
                 var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId);
-                var admin = await _db.Users.FirstOrDefaultAsync(u =>u.Id == adminId);
+                var admin = await _db.Users.FirstOrDefaultAsync(u => u.Id == adminId);
                 if (admin.Role != "admin") { return Unauthorized("Недостаточно прав"); }
                 if (user == null) { return NotFound("Пользователь не найден."); }
 

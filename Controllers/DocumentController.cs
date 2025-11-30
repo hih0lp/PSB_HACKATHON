@@ -1,5 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PSB_HACKATHON.Constants;
+using PSB_HACKATHON.Interfaces;
+using PSB_HACKATHON.Models;
+using PSB_HACKATHON.Services;
+using System.Data;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 
@@ -9,10 +14,16 @@ namespace PSB_HACKATHON.Controllers
     public class DocumentController : Controller
     {
         private readonly ILogger<DocumentController> _logger;
+        private readonly NotificationService _notificationService;
+        private readonly IUserRepository _userRepository;
+        private readonly ICourseRepository _courseRepository;
 
-        public DocumentController(ILogger<DocumentController> logger)
+        public DocumentController(ILogger<DocumentController> logger, NotificationService notificationService, IUserRepository userRepository, ICourseRepository courseRepository)
         {
             _logger = logger;
+            _notificationService = notificationService;
+            _userRepository = userRepository;
+            _courseRepository = courseRepository;
         }
 
         [HttpPost("{courseId}")]
@@ -76,12 +87,12 @@ namespace PSB_HACKATHON.Controllers
                 string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId);
 
                 if (!Directory.Exists(directoryPath))
-                    return null;
+                    return NoContent();
 
                 var absolutePaths = Directory.GetFiles(directoryPath)
                                             .Select(filePath => filePath) // Просто возвращаем полный путь
                                             .ToList();
-                if (absolutePaths.Count == 0) return Json(new List<string>());
+                if (absolutePaths.Count == 0) return NoContent();
 
 
                 return Json(absolutePaths);
@@ -94,10 +105,10 @@ namespace PSB_HACKATHON.Controllers
         }
 
         [HttpPost("save-homework/{courseId}/{lessonId}/{userId}")]
-        public async Task<IActionResult> SaveLessonHomework(string courseId, string lessonId, string userId)
+        public async Task<IActionResult> SaveLessonHomework(string courseId, string lessonId, int userId)
         {
             IFormFileCollection files = Request.Form.Files;
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, "homeworks", lessonId, userId);
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, "homeworks", lessonId, userId.ToString());
 
             try
             {
@@ -124,13 +135,29 @@ namespace PSB_HACKATHON.Controllers
                         originalFileName, fullFilePath, userId);
                 }
 
+
+                //var student = await _userRepository.GetUserAsync(userId);
+                var notification = new NotificationModel
+                {
+                    NotificationMessage = $"Вам пришло домашнее задание на проверку!",
+                    RedirectUri = "something"
+                };
+
+                var courseTutorsResponse = await _courseRepository.GetAsync(courseId);
+                var courseTutors = courseTutorsResponse.Users.Where(x => x.Role == UserConsts.USER_ROLE_TUTOR);
+
+                foreach (var tutor in courseTutors)
+                {
+                    await _notificationService.SendNotificationsAsync(tutor.Login, notification);
+
+                }
                 return Ok();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Ошибка сохранения домашних заданий для курса {CourseId}, урока {LessonId}, пользователя {UserId}",
                     courseId, lessonId, userId);
-                return BadRequest("Ошибка сохранения домашних заданий");
+                return BadRequest("Ошибка сохранения домашних заданий или проброса уведомлений");
             }
         }
 
