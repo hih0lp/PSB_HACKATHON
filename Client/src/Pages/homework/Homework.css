@@ -1,0 +1,299 @@
+.homework-check-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.submissions-list h2 {
+    color: #1f2937;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.submissions-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.submission-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.submission-card:hover {
+    border-color: #2563EB;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.submission-card.selected {
+    border-color: #2563EB;
+    background: #f0f4ff;
+}
+
+.submission-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.submission-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #1f2937;
+}
+
+.submission-date {
+    font-size: 12px;
+    color: #6b7280;
+    background: #f3f4f6;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.submission-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #4b5563;
+}
+
+.submission-preview {
+    margin-top: 10px;
+}
+
+.text-preview {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.file-indicator {
+    font-size: 12px;
+    color: #059669;
+    background: #ecfdf5;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6b7280;
+}
+
+.empty-state p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.grading-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+}
+
+.grading-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.grading-header h2 {
+    margin: 0;
+    color: #1f2937;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #6b7280;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.close-button:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.student-info {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.student-info h3 {
+    margin: 0 0 10px 0;
+    color: #1f2937;
+}
+
+.homework-description,
+.submission-content {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.homework-description h4,
+.submission-content h4 {
+    margin: 0 0 15px 0;
+    color: #374151;
+}
+
+.text-response {
+    background: white;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+}
+
+.file-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background: #2563EB;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.file-download:hover {
+    background: #1d4ed8;
+}
+
+.grading-form {
+    margin-top: 30px;
+}
+
+.grade-selector {
+    margin-bottom: 25px;
+}
+
+.grade-selector label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.grade-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.grade-button {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #d1d5db;
+    background: white;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.grade-button:hover {
+    border-color: #2563EB;
+    background: #f0f4ff;
+}
+
+.grade-button.selected {
+    border-color: #2563EB;
+    background: #2563EB;
+    color: white;
+}
+
+.feedback-input {
+    margin-bottom: 25px;
+}
+
+.feedback-input label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.feedback-input textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    resize: vertical;
+    transition: border-color 0.3s;
+}
+
+.feedback-input textarea:focus {
+    outline: none;
+    border-color: #2563EB;
+}
+
+.submit-grade-button {
+    width: 100%;
+    padding: 15px;
+    background: #059669;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-grade-button:hover {
+    background: #047857;
+}
+
+.selection-prompt {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6b7280;
+    font-size: 18px;
+    background: white;
+    border-radius: 12px;
+    border: 2px dashed #d1d5db;
+}
+
+.loading-container,
+.error-container {
+    text-align: center;
+    padding: 100px 20px;
+    font-size: 18px;
+}
+
+.error-container {
+    color: #dc2626;
+}
+
+@media (max-width: 1024px) {
+    .homework-check-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}

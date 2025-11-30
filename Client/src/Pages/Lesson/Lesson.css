@@ -1,0 +1,525 @@
+.course{
+    width: calc(100% - 200px);
+}
+/* .course .mainHeader . */
+
+.course .lessonNameInput{
+    border: 0;
+    border-bottom: solid 3px #E5E7EB;
+    font-size: 25px;
+    background-color: transparent;
+    width: 100%;
+    margin: 20px 0;
+    padding: 10px 0;
+}
+
+.course .courseNameInput{
+    border: 0;
+    border-bottom: solid 3px #E5E7EB;
+    font-size: 30px;
+    background-color: transparent;
+    width: 100%;
+    margin: 20px 0;
+    padding: 10px 0;
+}
+
+.course .courseAnchorList{
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+    background-color: #fff;
+    max-width: 200px;
+    width: 15%;
+    min-width: 150px;
+    padding: 20px;
+    height: calc(100% - 60px);
+    border-left: 1px solid #E5E7EB;
+}
+
+.course .courseAnchorList .append{
+    width: 100%;
+    margin: 10px 0;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    display: block;
+    text-align: center;
+    background-color: #E5E7EB;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.course .courseAnchorList .append:hover{
+    background-color: #2563EB;
+    color: white;
+}
+
+.course .appendElementBlock{
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.course .appendElementBlock button{
+    padding: 10px 20px;
+    background-color: #2563EB;
+    border-radius: 10px;
+    border: 0;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.course .appendElementBlock button:hover{
+    background-color: #1D4ED8;
+}
+
+.course .textAppendBlock{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.course .textAppendBlock textarea,
+.course .textAppendBlock input{
+    resize: none;
+    width: 100%;
+    border: 0;
+    border-bottom: solid 3px #E5E7EB;
+    border-radius: 5px;
+    padding-left: 20px !important;
+    margin: 10px 0;
+    height: 50px;
+    font-size: 20px;
+}
+
+.course .textAppendBlock textarea{
+    height: 100px;
+}
+
+.course .textAppendBlock button{
+    margin: 0 10px;
+    padding: 15px 30px;
+    border-radius: 15px;
+    background-color: #2563EB;
+    border: 0;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+
+}
+
+.course .textAppendBlock button:hover{
+    background-color: #1D4ED8;
+}
+
+/* Стили для навигации по урокам */
+.course .lessonsNav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.course .lessonNavItem {
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.course .lessonNavHeader {
+    padding: 12px 15px;
+    background: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.course .lessonNavHeader.active {
+    background: #2563EB;
+    color: white;
+    transition: 0.3s;
+
+}
+
+
+.course .lessonNavHeader:hover {
+    background: #E5E7EB;
+}
+
+.course .lessonNavHeader.active:hover {
+    background: #1D4ED8;
+}
+
+.course .lessonNavInput {
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    width: 100%;
+    color: inherit;
+    outline: none;
+}
+
+.course .lessonNavHeader.active .lessonNavInput {
+    color: white;
+}
+
+.course .lessonSubheaders {
+    background: white;
+    padding: 10px 15px 10px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.course .subheaderLink {
+    padding: 6px 0;
+    border-bottom: 1px solid #E5E7EB;
+    color: #666;
+    font-size: 12px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: block;
+    transition: 0.3s;
+
+}
+
+.course .subheaderLink:hover {
+    color: #2563EB;
+    padding-left: 5px;
+}
+
+.course .subheaderLink:last-child {
+    border-bottom: none;
+}
+
+/* Стили для контента уроков */
+.course .lessonExample {
+    padding: 20px 0;
+}
+
+.course .emptyMessage {
+    color: #999;
+    text-align: center;
+    font-style: italic;
+    padding: 40px 0;
+}
+
+.course .lessonElement {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #E5E7EB;
+    transition: all 0.3s ease;
+}
+
+.course .lessonElement.highlighted {
+    background-color: #fff3cd;
+    border-color: #ffc107;
+}
+
+.course .lessonHeader {
+    margin: 0;
+    color: #333;
+    padding-right: 60px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.course .lessonText {
+    margin: 0;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    padding-right: 60px;
+    color: #666;
+}
+
+.course .lessonFile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-right: 60px;
+    color: #666;
+}
+
+.course .elementActions {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    gap: 5px;
+}
+
+.course .editBtn, .course .removeBtn {
+    background: #E5E7EB;
+    color: #333;
+    border: none;
+    border-radius: 6px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+
+}
+
+.course .editBtn:hover {
+    background: #D1D5DB;
+}
+
+.course .removeBtn {
+    background: #EF4444;
+    color: white;
+        transition: 0.3s;
+
+}
+
+.course .removeBtn:hover {
+    background: #DC2626;
+}
+
+/* Стили для режима редактирования */
+.course .editMode {
+    position: relative;
+    padding-right: 60px;
+}
+
+.course .editInput {
+    width: 100%;
+    padding: 8px;
+    border: 0;
+    border-bottom: solid 2px #2563EB;
+    border-radius: 0;
+    font-size: 20px;
+    font-weight: 600;
+    background: transparent;
+}
+
+.course .editTextarea {
+    width: 100%;
+    padding: 8px;
+    border: 0;
+    border-bottom: solid 2px #2563EB;
+    border-radius: 0;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+    background: transparent;
+}
+
+.course .fileEdit {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.course .replaceBtn {
+    background: #10B981;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+        transition: 0.3s;
+
+}
+
+.course .replaceBtn:hover {
+    background: #059669;
+}
+
+.course .editActions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    gap: 5px;
+}
+
+.course .courseAnchorList .courseTitleInAnchor{
+    margin-bottom: 20px;
+    border-bottom: 2px solid #2563EB;
+}
+
+.course .courseAnchorList .saveAllButton{
+    position: fixed;
+    right: 15px;
+    bottom:15px;
+    max-width: 170px;
+    width: 15%;
+    min-width: 120px;
+    height: 40px;
+    background-color: #059669;
+    color: #fff;
+    font-weight: 600;
+    border: 0;
+    border-radius: 10px;
+    
+}
+
+.course .saveBtn, .cancelBtn {
+    border: none;
+    border-radius: 6px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.course .saveBtn {
+    background: #10B981;
+    color: white;
+        transition: 0.3s;
+
+}
+
+.course .saveBtn:hover {
+    background: #059669;
+}
+
+.course .cancelBtn {
+    background: #6B7280;
+    color: white;
+    transition: 0.3s;
+}
+
+.course .cancelBtn:hover {
+    background: #4B5563;
+}
+/* Дополнительные стили для страницы урока */
+.course .lessonElement {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #E5E7EB;
+    transition: all 0.3s ease;
+}
+
+.course .lessonElement.highlighted {
+    background-color: #fff3cd;
+    border-color: #ffc107;
+    box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.3);
+}
+
+.course .lessonHeader {
+    margin: 0;
+    color: #333;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.course .lessonText {
+    margin: 0;
+    white-space: pre-wrap;
+    line-height: 1.6;
+    color: #666;
+    font-size: 16px;
+}
+
+.course .lessonFile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .course {
+        width: 100%;
+    }
+    
+    .course .courseAnchorList {
+        position: static;
+        width: 100%;
+        max-width: none;
+        height: auto;
+        margin-bottom: 20px;
+    }
+    
+    .course .courseAnchorList + div {
+        margin-right: 0 !important;
+    }
+}
+/* Стили для домашних заданий */
+.homework-element {
+    border-left: 4px solid #ffc107;
+    background-color: #fffbf0;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.homework-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.homework-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.blocking-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #666;
+}
+
+.blocking-checkbox input[type="checkbox"] {
+    margin: 0;
+}
+
+.blocking-notice {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #856404;
+}
+
+.homework-indicator {
+    margin-left: 8px;
+    font-size: 14px;
+}
+
+.homework-link {
+    color: #e67e22 !important;
+    font-weight: 500;
+}
+
+.homework-settings {
+    margin: 10px 0;
+}
+
+.homework-settings .blocking-checkbox {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
