@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using PSB_HACKATHON.Constants;
 using PSB_HACKATHON.Interfaces;
 using PSB_HACKATHON.Models;
@@ -78,6 +79,37 @@ namespace PSB_HACKATHON.Controllers
                 return BadRequest();
             }
         }
+
+
+        [HttpGet("{courseId}/{fileName}")]
+        public async Task<IActionResult> GetFiles(string courseId, string fileName)
+        {
+            try
+            {
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, fileName);
+
+                if (!System.IO.File.Exists(filePath))
+                {
+                    _logger.LogWarning($"Файл не найден: {filePath}");
+                    return NotFound("Файл не найден");
+                }
+
+                var provider = new FileExtensionContentTypeProvider();
+                if (!provider.TryGetContentType(fileName, out var contentType))
+                    contentType = "application/octet-stream";
+
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+                return File(fileBytes, contentType, fileName);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка при получении файла");
+                return StatusCode(500, "Ошибка при получении файла");
+            }
+        }
+
+
+
 
         [HttpGet("{courseId}")]
         public async Task<IActionResult> GetFiles(string courseId)

@@ -71,7 +71,15 @@ namespace PSB_HACKATHON.Controllers
         [ProducesResponseType(400)]
         public async Task<IActionResult> CreateCourse()
         {
-            return Content(JsonSerializer.Serialize(Guid.NewGuid().ToString()));
+            var id = Guid.NewGuid().ToString();
+            var newCourse = new CourseModel
+            {
+                Id = id,
+            };
+
+            await _courseRepository.CreateAsync(newCourse);
+
+            return Content(JsonSerializer.Serialize(id));
         }
 
 
@@ -180,8 +188,8 @@ namespace PSB_HACKATHON.Controllers
                 var user = await _userRepository.GetUserAsync(userId);
                 var course = await _courseRepository.GetAsync(courseId);
 
-                _logger.LogInformation(user.Id.ToString());
-                _logger.LogInformation(course.Id);
+                //_logger.LogInformation(user.Id.ToString());
+                //_logger.LogInformation(course.Id);
 
                 if (user == null || course == null)
                     return NotFound("Нет такого юзера или курса");
@@ -205,23 +213,5 @@ namespace PSB_HACKATHON.Controllers
                 return StatusCode(500, "Ошибка в логике");
             }
         }
-
-        /* [HttpPost("save-solution/{courseId}/{userId}")]
-         public async Task<IActionResult> SaveSolutionIfRequired(string courseId, int userId)
-         {
-             try
-             {
-                 if (courseId == null || userId == null) return BadRequest("Неправильные данные");
-
-
-
-
-             }
-             catch (Exception)
-             {
-
-                 throw;
-             }
-         }*/
     }
 }
