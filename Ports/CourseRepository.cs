@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PSB_HACKATHON.Constants;
 using PSB_HACKATHON.Interfaces;
 using PSB_HACKATHON.Models;
 
@@ -36,9 +37,20 @@ namespace PSB_HACKATHON.Ports
             await _dbcontext.SaveChangesAsync();
         }
 
-        public async Task<List<CourseModel>> GetByUserIdAsync(int userId)
+        public async Task<List<CourseModel>> GetNotTutorCourseAsync(int userId)
         {
-            return await _dbcontext.Courses.Include(u => u.Users).Where(x => x.Users.Any(u => u.Id == userId)).ToListAsync();
+            return await _dbcontext.Courses.Include(u => u.Users).Where(x => x.Users.Any(u => u.Id == userId && u.Role != UserConsts.USER_ROLE_TUTOR)).ToListAsync();
+        }
+
+        public async Task<List<CourseModel>> GetTutorCourseAsync(int userId)
+        {
+            return await _dbcontext.Courses.Include(u => u.Users).Where(x => x.Users.Any(u => u.Id == userId && u.Role == UserConsts.USER_ROLE_TUTOR)).ToListAsync();
+        }
+
+        public async Task<List<CourseModel>> GetAllCoursesAsync()
+        {
+            return await _dbcontext.Courses.Include(u => u.Users).ToListAsync();
+
         }
 
         //public async Task<List<HeaderModel>> GetCourseHeadersAsync(string courseId)
