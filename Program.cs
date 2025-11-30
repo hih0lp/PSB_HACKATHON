@@ -12,16 +12,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddControllers();
 
 
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(builder =>
-    {
-        builder.WithOrigins("https://psbsmartedu.ru", "https://www.psbsmartedu.ru")
-               .AllowAnyHeader()
-               .AllowAnyMethod()
-               .AllowCredentials(); 
-    });
-});
+builder.Services.AddCors();
 
 
 builder.Services.AddDbContext<DB>(options =>
@@ -64,20 +55,11 @@ app.UseRouting();
 
 
 app.UseCors(policy => policy
-    .WithOrigins(
-        "https://psbsmartedu.ru",
-        "https://www.psbsmartedu.ru",
-        "http://psbsmartedu.ru",
-        "http://www.psbsmartedu.ru",
-        "https://localhost:3000",  
-        "http://localhost:3000",     
-        "https://localhost:5173",   
-        "http://localhost:5173"      
-    )
+    .SetIsOriginAllowed(origin => true)
     .AllowAnyHeader()
     .AllowAnyMethod()
-    .AllowCredentials()  
-    .WithExposedHeaders("Content-Disposition")  
+    .AllowCredentials()
+    //.WithExposedHeaders("*")
 );
 
 app.UseSwagger();
