@@ -32,7 +32,7 @@ namespace PSB_HACKATHON.Controllers
                     .Where(u => u.Id == userId)
                     .Select(u => u.Role)
                     .FirstOrDefaultAsync();
-                if (userRole != "Admin") { return Unauthorized("Недостаточно прав"); }
+                if (userRole != "admin") { return Unauthorized("Недостаточно прав"); }
 
                 var students = await _db.Users
                     .Where(u => u.Role == "student")
@@ -55,19 +55,22 @@ namespace PSB_HACKATHON.Controllers
 
         [HttpPut]
         [Route("Admin/ChangeRole")]
-        public async Task<IActionResult> ChangeRole(int userId)
+        public async Task<IActionResult> ChangeRole(int userId, int adminId, string role)
         {
             try
             {
                 var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId);
-
+                if (user.Role != "admin") { return Unauthorized("Недостаточно прав"); }
                 if (user == null) { return NotFound("Пользователь не найден."); }
-                user.Role = "teacher";
+
+                if (role != "student" && role != "admin" && role != "teacher") { return BadRequest($"Роли «{role}» не существует в системе"); }
+
+                user.Role = role;
                 await _db.SaveChangesAsync();
 
                 var notification = new NotificationModel
                 {
-                    NotificationMessage = "Вам выдана новая роль: «Преподаватель»",
+                    NotificationMessage = $"Вам выдана новая роль: «{role}»",
                 };
                
                 await _notificationController.SendToUser(user.Login, notification);
