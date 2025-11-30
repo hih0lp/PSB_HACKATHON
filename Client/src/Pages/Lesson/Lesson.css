@@ -1,6 +1,7 @@
 .course{
     width: calc(100% - 200px);
 }
+/* .course .mainHeader . */
 
 .course .lessonNameInput{
     border: 0;
@@ -403,4 +404,122 @@
 
 .course .cancelBtn:hover {
     background: #4B5563;
+}
+/* Дополнительные стили для страницы урока */
+.course .lessonElement {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #E5E7EB;
+    transition: all 0.3s ease;
+}
+
+.course .lessonElement.highlighted {
+    background-color: #fff3cd;
+    border-color: #ffc107;
+    box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.3);
+}
+
+.course .lessonHeader {
+    margin: 0;
+    color: #333;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.course .lessonText {
+    margin: 0;
+    white-space: pre-wrap;
+    line-height: 1.6;
+    color: #666;
+    font-size: 16px;
+}
+
+.course .lessonFile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .course {
+        width: 100%;
+    }
+    
+    .course .courseAnchorList {
+        position: static;
+        width: 100%;
+        max-width: none;
+        height: auto;
+        margin-bottom: 20px;
+    }
+    
+    .course .courseAnchorList + div {
+        margin-right: 0 !important;
+    }
+}
+/* Стили для домашних заданий */
+.homework-element {
+    border-left: 4px solid #ffc107;
+    background-color: #fffbf0;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.homework-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.homework-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.blocking-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #666;
+}
+
+.blocking-checkbox input[type="checkbox"] {
+    margin: 0;
+}
+
+.blocking-notice {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #856404;
+}
+
+.homework-indicator {
+    margin-left: 8px;
+    font-size: 14px;
+}
+
+.homework-link {
+    color: #e67e22 !important;
+    font-weight: 500;
+}
+
+.homework-settings {
+    margin: 10px 0;
+}
+
+.homework-settings .blocking-checkbox {
+    font-size: 14px;
+    margin-bottom: 10px;
 }

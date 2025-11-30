@@ -1,16 +1,18 @@
 import MainMenu from "./Elements/Menu/Menu.jsx"
 import './App.css'
-//ПОПРОБОВАТЬ ЗАМЕНИТЬ HEADER И ВСТАВИТЬ ЕГО СЮДА С ПРОПСАМИ
-// ГОВНО ЕБАНОЕ, ДЕЛАЕМ ВСТАВЛЯЕМЫЙ ХЭДЕР В КАЖДУЮ СТРАНИЦУ
-export default function App({ children, headerText }){
-  const userName = 'Милашка'
-  return(
-    <main >
-    <MainMenu/>
-    <main className="basePage">
+import AlertList from "./Elements/AlertList/AlertList.jsx"
+import { useAlert } from "./Elements/AlertList/AlertContext.jsx";
 
-      {children}
-    </main>
+export default function App({ children }){
+  const { isAlertOpened, setIsAlertOpened } = useAlert();
+  
+  return(
+    <main>
+      <MainMenu />
+      <AlertList isAlertOpened={isAlertOpened} setIsAlertOpened={setIsAlertOpened}/>
+      <div className="basePage">
+        {children}
+      </div>
     </main>
   )
 }

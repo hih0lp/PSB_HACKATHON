@@ -1,0 +1,90 @@
+
+.LessonList .tilesBlock .tile .progress-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.LessonList .tilesBlock .tile .progress-bar {
+  width: 100%;
+  height: 12px;
+  background-color: #E5E7EB;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.LessonList .tilesBlock .tile .progress {
+  height: 100%;
+  background: linear-gradient(to right, #79f74351, #79F743);
+  border-radius: 12px;
+  transition: width 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
+
+.LessonList .tilesBlock .tile .progress-text {
+  color: white;
+  font-size: 10px !important;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.LessonList .tilesBlock{
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.LessonList .tilesBlock .tile{
+    width: 45%;
+    min-width: 250px;
+    border-radius: 13px;
+    border: solid 1px #E5E7EB;
+    /* aspect-ratio: 1; */
+    
+}
+.LessonList .tilesBlock .tile .logoPart{
+    height: 100px;
+    border-radius: 13px;
+    padding: 10px 20px ;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #2563EB;
+}
+.LessonList .tilesBlock .tile .tileBase{
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+.LessonList .tilesBlock .tile .tileBase span{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.LessonList .tilesBlock .tile .tileBase .textBlock{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.LessonList .tilesBlock .tile .tileBase footer button{
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 7px;
+    color: #fff;
+    background-color: #2563EB;
+    border: 0;
+}
+.LessonList .tilesBlock .tile .tileBase footer span{
+    font-size: 14px;
+}

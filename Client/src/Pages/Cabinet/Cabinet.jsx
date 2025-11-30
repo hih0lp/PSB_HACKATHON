@@ -3,10 +3,10 @@ import Header from '../../Elements/Header/Header'
 import './Cabinet.css'
 
 export default function Cabinet(){
-    const userName = 'Милашка'
+    const userName = document.cookie.split('login=')[1].split(';')[0]
     return(
         <App >
-            <Header headerText={`Добрый день ${userName}`}/>
+            <Header headerText={`Добрый день, ${userName}`}/>
             <main className='accountPage'>
                 <section>
                     <header>
@@ -207,7 +207,7 @@ export default function Cabinet(){
                             <div className='tileBase'>
                             <div className="textBlock">
                                 <span>Математический анализ</span>
-                                <p>Проф. Дор П.И</p>
+                                <p>Проф. П.И Вертинский</p>
                             </div>
                             <footer>
                                 <button>Продолжить</button>
@@ -226,7 +226,7 @@ export default function Cabinet(){
                             <div className='tileBase'>
                             <div className="textBlock">
                                 <span>Математический анализ</span>
-                                <p>Проф. Дор П.И</p>
+                                <p>Проф. Вертинский П.И</p>
                             </div>
                             <footer>
                                 <button>Продолжить</button>

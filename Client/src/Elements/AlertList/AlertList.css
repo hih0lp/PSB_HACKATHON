@@ -1,0 +1,228 @@
+.alertModal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: #224e4880;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    transition: 0.2s;
+}
+
+.alertModal .AlertList{
+    width: 40%;
+    min-width: 280px;
+    background-color: #fff;
+    height: 100%;
+    border-radius: 20px 0 0 20px;
+    padding: 20px 40px;
+    overflow-y: auto;
+}
+
+.alertModal .offModal{
+    margin-right: 3%;
+    border-radius: 50%;
+    min-width: 20px;
+    width: 40px;
+    height: 40px;
+    min-height: 20px;
+    border: 0;
+    background-color: #fff;
+    padding: 0;
+    font-size: clamp(15px, 1.8dvw, 18px);
+    color: #344977;
+}
+
+.alertModal .AlertList h1{
+    font-size: clamp(15px, 1.5dvw, 27px);
+    color: #344977;
+    margin: 20px 0 40px 0;
+}
+
+.alertModal .AlertList p{
+    font-size: clamp(10px, 1.5dvw, 18px);
+    margin: 10px 0;
+    color: #9093A6;
+}
+
+.alertModal .AlertList ul{
+    width: 100%;
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alertModal .AlertList ul li{
+    width: 100%;
+    padding: clamp(5px, 1.8dvw, 10px);
+    border-radius: 15px;
+    transition: 0.3s;
+    display: flex;
+    gap: 2%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.alertModal .AlertList ul li:hover{
+    background-color: #E9F5F8;
+    transform: translateX(3px);
+}
+
+.alertModal .AlertList ul li h2{
+    color: #344977;
+    font-size: clamp(10px, 1.5dvw, 18px);
+}
+
+.alertModal .AlertList ul li p{
+    font-size: clamp(10px, 1.5dvw, 18px);
+    margin: 0;
+}
+
+@media (max-width:500px) {
+    .alertModal .offModal{
+        margin-right: 2px;
+    }
+}
+
+.alertModal .AlertList ul li div{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-left: #BAEDE6 solid 3px;
+    gap: 3px;
+    flex-direction: column;
+    width: 88%;
+    height: auto;
+    padding: 10px;
+}
+.alertModal .AlertList .alertHolder{
+    display: flex;
+    flex-direction: column-reverse;
+}
+.alertModal .AlertList ul li button{
+    border: 0;
+    background-color: transparent;
+    width: calc(10%);
+}
+
+.alertModal .AlertList ul li button svg{
+    width: clamp(10px, 1.8dvw, 18px);
+}
+
+.notificationAlertContainer{
+    max-width: 30%;
+    min-width: 280px;
+    position: fixed;
+    z-index: 5;
+    bottom: 8px;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+    flex-direction: column-reverse;
+    gap: 15px;
+}
+
+.notificationAlertContainer .notificationAlert{
+    position: relative;
+    width: 100%;
+    height: 110px;
+    background-color: #fff;
+    box-shadow: 0px 2px 8px 0px #9093A6aa ;
+    border-radius: 25px;
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 5px;
+}
+
+.notificationAlertContainer .notificationAlert div {
+    width: 100%; /* Добавляем для правильного ограничения текста */
+    overflow: hidden; /* Скрываем выходящий за пределы текст */
+    cursor: pointer;
+}
+
+.notificationAlertContainer .notificationAlert div h1{
+    color: #344977;
+    font-size: clamp(15px, 1.3dvw, 25px);
+    /* Ограничение в 1 строку с троеточием */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.notificationAlertContainer .notificationAlert div p{
+    color: #0a0a0a;
+    font-size: clamp(12px, 1.3dvw, 17px);
+    /* Ограничение в 2 строки с троеточием */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    padding: 0;
+}
+
+.notificationAlertContainer .notificationAlert svg{
+    cursor: pointer;
+    animation: alertMotion 0.4s infinite ease-in-out ;
+    height: 35px;
+    width: 35px;
+    flex-shrink: 0; /* Запрещаем сжатие иконки */
+}
+
+.notificationAlertContainer .hideAllNotifications{
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px 0 #9093A6aa;
+    color: #344977;
+    border: 0;
+    border-radius: 5px;
+    padding: 8px 3px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.notificationAlertContainer .hideAllNotifications:hover{
+    opacity: 0.9;
+    transform: translateY(1px);
+}
+.notificationAlertContainer .notificationAlert .removeALert{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    border: 0;
+    background-color: transparent;
+    color: #344977;
+    z-index: 6;
+    cursor: pointer;
+}
+
+@keyframes alertMotion {
+    0%{
+        transform: rotate(0);
+    }
+    25%{
+        transform: rotate(10deg);
+    }
+    50%{transform: rotate(0deg);}
+    75%{transform: rotate(-10deg);}
+    100%{transform: rotate(0);}
+}

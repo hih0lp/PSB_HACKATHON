@@ -1,0 +1,52 @@
+.LoginForm{
+    width: 100dvw;
+    height: 100dvh;
+    margin-left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.LoginForm article{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px 20%;
+    background-color: #fff;
+    width: 80%;
+    height: max-content;
+    border-radius: 10px;
+    color: #344977;
+}
+.LoginForm h1{
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: clamp(20px, 3dvw, 45px);
+    font-weight: 400;
+}
+.LoginForm p{
+    width: 100%;
+    text-align: left;
+}
+
+.LoginForm input{
+    max-width: 1000px;
+    padding-top: 3px ;
+    margin: 5px 0;
+    border: 0;
+    border-bottom: solid 3px #344977;
+    width: 100%;
+}
+
+.LoginForm .whiteButton{
+    border-radius: 10px;
+    border: #344977 solid 3px;
+    width: 100%;
+    max-width: 200px;
+    background-color: #fff;
+    color: #344977;
+    font-weight: 600;
+    height: 50px;
+    margin-top: 20px;
+}

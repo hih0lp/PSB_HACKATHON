@@ -15,3 +15,8 @@
   align-items: center;
   border-radius: 50%;
 }
+
+.header-button{
+  background-color: transparent;
+  border: 0;
+}
