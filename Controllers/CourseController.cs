@@ -36,14 +36,14 @@ namespace PSB_HACKATHON.Controllers
         /// </summary>
         /// <param name="userId">Идентификатор пользователя</param>
         /// <returns>Список курсов пользователя</returns>
-        [HttpGet("get-courses/{userId}")]
-        [ProducesResponseType(typeof(List<CourseModel>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetCoursesByUserId(int userId)
-        {
-            return Json(await _courseRepository.GetByUserIdAsync(userId));
-        }
+        //[HttpGet("get-courses/{userId}")]
+        //[ProducesResponseType(typeof(List<CourseModel>), StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //public async Task<IActionResult> GetCoursesByUserId(int userId)
+        //{
+        //    return Json(await _courseRepository.GetByUserIdAsync(userId));
+        //}
 
 
         /// <summary>
@@ -99,21 +99,40 @@ namespace PSB_HACKATHON.Controllers
             }
         }
 
-
-        [HttpGet("get-course/{courseId}")]
-        public async Task<IActionResult> GetCourse(string courseId)
+        [HttpGet("get-tutor-courses/{userId}")]
+        public async Task<IActionResult> GetMyTutorCourses(int userId)
         {
-            var course = await _courseRepository.GetAsync(courseId);
+            var course = await _courseRepository.GetTutorCourseAsync(userId);
             if (course is null) return NotFound();
 
 
             return Json(course);
         }
-        
-            //public async Task<IActionResult> GetCourses()
-            //{
 
-            //}
+        [HttpGet("get-not-tutor-courses/{userId}")]
+        public async Task<IActionResult> GeMyNotTutorCourse(int userId)
+        {
+            var course = await _courseRepository.GetNotTutorCourseAsync(userId);
+            if (course is null) return NotFound();
+
+
+            return Json(course);
+        }
+
+        [HttpGet("get-all-courses")]
+        public async Task<IActionResult> GetAllCourses()
+        {
+            var course = await _courseRepository.GetAllCoursesAsync();
+            if (course is null) return NotFound();
+
+
+            return Json(course);
+        }
+
+        //public async Task<IActionResult> GetCourses()
+        //{
+
+        //}
 
         /// <summary>
         /// Присоединиться к курсу в качестве преподавателя
