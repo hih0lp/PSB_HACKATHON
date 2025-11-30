@@ -99,6 +99,16 @@ namespace PSB_HACKATHON.Controllers
             }
         }
 
+
+        [HttpGet("get-course/{courseId}")]
+        public async Task<IActionResult> GetCourse(string courseId)
+        {
+            var course = await _courseRepository.GetAsync(courseId);
+            if (course is null) return NotFound();
+
+
+            return Json(course);
+        }
         
             //public async Task<IActionResult> GetCourses()
             //{
