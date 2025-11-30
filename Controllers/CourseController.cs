@@ -102,6 +102,7 @@ namespace PSB_HACKATHON.Controllers
         [HttpGet("get-tutor-courses/{userId}")]
         public async Task<IActionResult> GetMyTutorCourses(int userId)
         {
+            if (userId == null) return NotFound("Юзер айди null");
             var course = await _courseRepository.GetTutorCourseAsync(userId);
             //if (course is null) return NotFound();
 
@@ -112,6 +113,7 @@ namespace PSB_HACKATHON.Controllers
         [HttpGet("get-not-tutor-courses/{userId}")]
         public async Task<IActionResult> GeMyNotTutorCourse(int userId)
         {
+            if (userId == null) return NotFound("Юзер айди null");
             var course = await _courseRepository.GetNotTutorCourseAsync(userId);
             //if (course is null) return NotFound();
 
@@ -129,11 +131,6 @@ namespace PSB_HACKATHON.Controllers
             return Json(course);
         }
 
-        //public async Task<IActionResult> GetCourses()
-        //{
-
-        //}
-
         /// <summary>
         /// Присоединиться к курсу в качестве преподавателя
         /// </summary>
@@ -146,8 +143,8 @@ namespace PSB_HACKATHON.Controllers
             var user = await _userRepository.GetUserAsync(userId);
             var course = await _courseRepository.GetAsync(courseId);
 
-            if (user == null || course == null) return NotFound();
-            if (user.Role != UserConsts.USER_ROLE_TUTOR) return Forbid();
+            if (user == null || course == null) return NotFound("Нет такого юзера или курса");
+            if (user.Role != UserConsts.USER_ROLE_TUTOR) return Forbid("Нет прав");
 
 
             course.Users.Add(user);
