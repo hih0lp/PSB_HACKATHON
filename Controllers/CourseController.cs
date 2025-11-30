@@ -36,14 +36,29 @@ namespace PSB_HACKATHON.Controllers
         /// </summary>
         /// <param name="userId">Идентификатор пользователя</param>
         /// <returns>Список курсов пользователя</returns>
-        //[HttpGet("get-courses/{userId}")]
-        //[ProducesResponseType(typeof(List<CourseModel>), StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public async Task<IActionResult> GetCoursesByUserId(int userId)
-        //{
-        //    return Json(await _courseRepository.GetByUserIdAsync(userId));
-        //}
+        [HttpGet("get-course/{courseId}")]
+        [ProducesResponseType(typeof(List<CourseModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetCoursesByUserId(string courseId)
+        {
+            var course = await _courseRepository.GetAsync(courseId);
+            if (course == null) return NotFound();
+
+            var courseDto = new CoursesDTO
+            {
+                Id = course.Id,
+                Content = course.Content,
+                Users = course.Users?.Select(u => new UserDTO
+                {
+                    Id = u.Id,
+                    Login = u.Login,
+                    Role = u.Role
+                }).ToList()
+            };
+
+            return Ok(courseDto);
+        }
 
 
         /// <summary>
@@ -79,7 +94,7 @@ namespace PSB_HACKATHON.Controllers
                 {
                     var newCourse = new CourseModel
                     {
-                        Id = Guid.NewGuid().ToString(),
+                        Id = courseId,
                         Content = courseDto.Content,
                     };
                     await _courseRepository.CreateAsync(newCourse);
@@ -95,15 +110,16 @@ namespace PSB_HACKATHON.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return StatusCode(500, ex.Message);
             }
         }
 
         [HttpGet("get-tutor-courses/{userId}")]
         public async Task<IActionResult> GetMyTutorCourses(int userId)
         {
+            if (userId == null) return NotFound("Юзер айди null");
             var course = await _courseRepository.GetTutorCourseAsync(userId);
-            if (course is null) return NotFound();
+            //if (course is null) return NotFound();
 
 
             return Json(course);
@@ -112,27 +128,43 @@ namespace PSB_HACKATHON.Controllers
         [HttpGet("get-not-tutor-courses/{userId}")]
         public async Task<IActionResult> GeMyNotTutorCourse(int userId)
         {
-            var course = await _courseRepository.GetNotTutorCourseAsync(userId);
-            if (course is null) return NotFound();
+            if (userId == null) return NotFound("Юзер айди null");
+            var courses = await _courseRepository.GetTutorCourseAsync(userId);
 
+            var courseDtos = courses.Select(c => new CoursesDTO
+            {
+                Id = c.Id,
+                Content = c.Content,
+                Users = c.Users?.Select(u => new UserDTO
+                {
+                    Id = u.Id,
+                    Login = u.Login,
+                    Role = u.Role
+                }).ToList()
+            }).ToList();
 
-            return Json(course);
+            return Json(courseDtos);
         }
 
         [HttpGet("get-all-courses")]
         public async Task<IActionResult> GetAllCourses()
         {
-            var course = await _courseRepository.GetAllCoursesAsync();
-            if (course is null) return NotFound();
+            var courses = await _courseRepository.GetAllCoursesAsync();
 
+            var courseDtos = courses.Select(c => new CoursesDTO
+            {
+                Id = c.Id,
+                Content = c.Content,
+                Users = c.Users?.Select(u => new UserDTO
+                {
+                    Id = u.Id,
+                    Login = u.Login,
+                    Role = u.Role
+                }).ToList()
+            }).ToList();
 
-            return Json(course);
+            return Json(courseDtos);
         }
-
-        //public async Task<IActionResult> GetCourses()
-        //{
-
-        //}
 
         /// <summary>
         /// Присоединиться к курсу в качестве преподавателя
@@ -140,20 +172,28 @@ namespace PSB_HACKATHON.Controllers
         /// <param name="courseId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        [HttpPost("get-cooperating/{courseId}/{userId}")]
-        public async Task<IActionResult> GetCooperating(string courseId, int userId)
+        [HttpPost("subscribe-on/{courseId}/{userId}")]
+        public async Task<IActionResult> SubscribeOn(string courseId, int userId)
         {
-            var user = await _userRepository.GetUserAsync(userId);
-            var course = await _courseRepository.GetAsync(courseId);
+            try
+            {
+                var user = await _userRepository.GetUserAsync(userId);
+                var course = await _courseRepository.GetAsync(courseId);
 
-            if (user == null || course == null) return NotFound();
-            if (user.Role != UserConsts.USER_ROLE_TUTOR) return Forbid();
+                if (user == null || course == null) return NotFound("Нет такого юзера или курса");
+                if (user.Role != UserConsts.USER_ROLE_TUTOR) return Unauthorized("Нет прав");
 
 
-            course.Users.Add(user);
-            await _courseRepository.UpdateAsync(course);
+                course.Users.Add(user);
+                await _courseRepository.UpdateAsync(course);
 
-            return Ok();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(500, "Ошибка в логике");
+            }
         }
     }
 }

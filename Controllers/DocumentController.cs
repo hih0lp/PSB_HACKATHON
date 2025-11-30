@@ -71,16 +71,24 @@ namespace PSB_HACKATHON.Controllers
         [HttpGet("{courseId}")]
         public async Task<IActionResult> GetFiles(string courseId)
         {
-            string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId);
+            try
+            {
+                string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId);
 
-            if (!Directory.Exists(directoryPath))
-                return NotFound($"Директория не найдена: {directoryPath}");
+                if (!Directory.Exists(directoryPath))
+                    return null;
 
-            var absolutePaths = Directory.GetFiles(directoryPath)
-                                        .Select(filePath => filePath) // Просто возвращаем полный путь
-                                        .ToList();
+                var absolutePaths = Directory.GetFiles(directoryPath)
+                                            .Select(filePath => filePath) // Просто возвращаем полный путь
+                                            .ToList();
 
-            return Json(absolutePaths);
+                return Json(absolutePaths);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(500, "Ошибка логики");
+            }
         }
     }
 }
