@@ -195,5 +195,23 @@ namespace PSB_HACKATHON.Controllers
                 return StatusCode(500, "Ошибка в логике");
             }
         }
+
+        [HttpPost("save-solution/{courseId}/{userId}")]
+        public async Task<IActionResult> SaveSolutionIfRequired(string courseId, int userId)
+        {
+            try
+            {
+                if (courseId == null || userId == null) return BadRequest("Неправильные данные");
+
+
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
