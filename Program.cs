@@ -1,27 +1,82 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi;
+using PSB_HACKATHON;
+using PSB_HACKATHON.Interfaces;
+using PSB_HACKATHON.NotificationHub;
+using PSB_HACKATHON.Ports;
+using PSB_HACKATHON.Services;
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddControllers();
+
+
+builder.Services.AddCors();
+
+
+builder.Services.AddDbContext<DB>(options =>
+{
+    options.UseNpgsql(connectionString);
+    options.EnableSensitiveDataLogging();
+}, ServiceLifetime.Scoped);
+
+builder.Services.AddSignalR();
+
+
+builder.Services.AddTransient<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<NotificationService>();
+
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "PSB HACKATHON API",
+        Description = "API для хакатона"
+    });
+
+    options.AddServer(new OpenApiServer
+    {
+        Url = "https://psbsmartedu.ru/",
+        Description = "Production API"
+    });
+
+    options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+});
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+app.UseWebSockets();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 
+
+app.UseCors(policy => policy
+    .WithOrigins(
+        "https://front.psbsmartedu.ru",
+        "https://localhost:3000", // для разработки
+        "http://localhost:3000"   // для разработки
+    )
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+    .SetIsOriginAllowedToAllowWildcardSubdomains()
+);
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "PSB HACKATHON API v1");
+    c.RoutePrefix = "swagger";
+});
+
+app.MapControllers();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapHub<NotificationsHub>("/notifications");
 
 app.Run();
