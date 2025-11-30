@@ -10,6 +10,6 @@ namespace PSB_HACKATHON.Models
         public string Email { get; set; }
         public string Role { get; set; } = "student";
         [JsonIgnore]
-        public List<CourseModel>? Courses { get; set; }
+        public List<CourseModel>? Courses { get; set; } = new();
     }
 }
