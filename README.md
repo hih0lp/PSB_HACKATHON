@@ -50,6 +50,8 @@
 
 ## 📁 Структура проекта
 
+<img width="524" height="939" alt="image" src="https://github.com/user-attachments/assets/71085e31-81f4-4d13-a1df-4da0b3570e3c" />
+
 ---
 
 ## 🔗 Демо-сайт
