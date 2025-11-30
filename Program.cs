@@ -63,7 +63,22 @@ app.UseStaticFiles();
 app.UseRouting();
 
 
-app.UseCors();
+app.UseCors(policy => policy
+    .WithOrigins(
+        "https://psbsmartedu.ru",
+        "https://www.psbsmartedu.ru",
+        "http://psbsmartedu.ru",
+        "http://www.psbsmartedu.ru",
+        "https://localhost:3000",  
+        "http://localhost:3000",     
+        "https://localhost:5173",   
+        "http://localhost:5173"      
+    )
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()  
+    .WithExposedHeaders("Content-Disposition")  
+);
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
