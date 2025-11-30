@@ -9,7 +9,7 @@ namespace PSB_HACKATHON.Models
         //public int UserId { get; set; }
         //public int AuthorId { get; set; `
         //public List<HeaderModel> Headers { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<UserModel>? Users { get; set; }
     }
 }

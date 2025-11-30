@@ -4,7 +4,7 @@
     {
         public string? Id { get; set; }
         public string? Content { get; set; }
-        public List<UserModel> Users { get; set; } = new();
+        public List<UserDTO> Users { get; set; } = new();
 
     }
 }

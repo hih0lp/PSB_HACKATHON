@@ -42,7 +42,22 @@ namespace PSB_HACKATHON.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCoursesByUserId(string courseId)
         {
-            return Json(await _courseRepository.GetAsync(courseId));
+            var course = await _courseRepository.GetAsync(courseId);
+            if (course == null) return NotFound();
+
+            var courseDto = new CoursesDTO
+            {
+                Id = course.Id,
+                Content = course.Content,
+                Users = course.Users?.Select(u => new UserDTO
+                {
+                    Id = u.Id,
+                    Login = u.Login,
+                    Role = u.Role
+                }).ToList()
+            };
+
+            return Ok(courseDto);
         }
 
 
@@ -79,7 +94,7 @@ namespace PSB_HACKATHON.Controllers
                 {
                     var newCourse = new CourseModel
                     {
-                        Id = courseDto.Id,
+                        Id = courseId,
                         Content = courseDto.Content,
                     };
                     await _courseRepository.CreateAsync(newCourse);
@@ -114,21 +129,41 @@ namespace PSB_HACKATHON.Controllers
         public async Task<IActionResult> GeMyNotTutorCourse(int userId)
         {
             if (userId == null) return NotFound("Юзер айди null");
-            var course = await _courseRepository.GetNotTutorCourseAsync(userId);
-            //if (course is null) return NotFound();
+            var courses = await _courseRepository.GetTutorCourseAsync(userId);
 
+            var courseDtos = courses.Select(c => new CoursesDTO
+            {
+                Id = c.Id,
+                Content = c.Content,
+                Users = c.Users?.Select(u => new UserDTO
+                {
+                    Id = u.Id,
+                    Login = u.Login,
+                    Role = u.Role
+                }).ToList()
+            }).ToList();
 
-            return Json(course);
+            return Json(courseDtos);
         }
 
         [HttpGet("get-all-courses")]
         public async Task<IActionResult> GetAllCourses()
         {
-            var course = await _courseRepository.GetAllCoursesAsync();
-            //if (course is null) return NotFound();
+            var courses = await _courseRepository.GetAllCoursesAsync();
 
+            var courseDtos = courses.Select(c => new CoursesDTO
+            {
+                Id = c.Id,
+                Content = c.Content,
+                Users = c.Users?.Select(u => new UserDTO
+                {
+                    Id = u.Id,
+                    Login = u.Login,
+                    Role = u.Role
+                }).ToList()
+            }).ToList();
 
-            return Json(course);
+            return Json(courseDtos);
         }
 
         /// <summary>
