@@ -79,7 +79,7 @@ namespace PSB_HACKATHON.Controllers
                 {
                     var newCourse = new CourseModel
                     {
-                        Id = Guid.NewGuid().ToString(),
+                        Id = courseDto.Id,
                         Content = courseDto.Content,
                     };
                     await _courseRepository.CreateAsync(newCourse);
