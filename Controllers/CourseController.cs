@@ -103,7 +103,7 @@ namespace PSB_HACKATHON.Controllers
         public async Task<IActionResult> GetMyTutorCourses(int userId)
         {
             var course = await _courseRepository.GetTutorCourseAsync(userId);
-            if (course is null) return NotFound();
+            //if (course is null) return NotFound();
 
 
             return Json(course);
@@ -113,7 +113,7 @@ namespace PSB_HACKATHON.Controllers
         public async Task<IActionResult> GeMyNotTutorCourse(int userId)
         {
             var course = await _courseRepository.GetNotTutorCourseAsync(userId);
-            if (course is null) return NotFound();
+            //if (course is null) return NotFound();
 
 
             return Json(course);
@@ -123,7 +123,7 @@ namespace PSB_HACKATHON.Controllers
         public async Task<IActionResult> GetAllCourses()
         {
             var course = await _courseRepository.GetAllCoursesAsync();
-            if (course is null) return NotFound();
+            //if (course is null) return NotFound();
 
 
             return Json(course);
