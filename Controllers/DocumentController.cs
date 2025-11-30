@@ -137,21 +137,21 @@ namespace PSB_HACKATHON.Controllers
 
 
                 //var student = await _userRepository.GetUserAsync(userId);
-                var notification = new NotificationModel
-                {
-                    NotificationMessage = $"Вам пришло домашнее задание на проверку!",
-                    RedirectUri = "something"
-                };
+                //var notification = new NotificationModel
+                //{
+                //    NotificationMessage = $"Вам пришло домашнее задание на проверку!",
+                //    RedirectUri = "something"
+                //};
 
                 var courseTutorsResponse = await _courseRepository.GetAsync(courseId);
                 var courseTutors = courseTutorsResponse.Users.Where(x => x.Role == UserConsts.USER_ROLE_TUTOR);
 
-                foreach (var tutor in courseTutors)
-                {
-                    await _notificationService.SendNotificationsAsync(tutor.Login, notification);
-                    _logger.LogInformation("УВЕДЫ КИДАЮТСЯ");
+                //foreach (var tutor in courseTutors)
+                //{
+                //    await _notificationService.SendNotificationsAsync(tutor.Login, notification);
+                //    _logger.LogInformation("УВЕДЫ КИДАЮТСЯ");
 
-                }
+                //}
                 return Ok();
             }
             catch (Exception ex)

@@ -184,8 +184,8 @@ namespace PSB_HACKATHON.Controllers
                 if (user.Role != UserConsts.USER_ROLE_TUTOR) return Unauthorized("Нет прав");
 
 
-                course.Users.Add(user);
-                await _courseRepository.UpdateAsync(course);
+                user.Courses.Add(course);
+                await _userRepository.UpdateAsync(user);
 
                 return Ok();
             }
