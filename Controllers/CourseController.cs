@@ -95,7 +95,7 @@ namespace PSB_HACKATHON.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return StatusCode(500, ex.Message);
             }
         }
 
@@ -140,17 +140,25 @@ namespace PSB_HACKATHON.Controllers
         [HttpPost("subscribe-on/{courseId}/{userId}")]
         public async Task<IActionResult> SubscribeOn(string courseId, int userId)
         {
-            var user = await _userRepository.GetUserAsync(userId);
-            var course = await _courseRepository.GetAsync(courseId);
+            try
+            {
+                var user = await _userRepository.GetUserAsync(userId);
+                var course = await _courseRepository.GetAsync(courseId);
 
-            if (user == null || course == null) return NotFound("Нет такого юзера или курса");
-            if (user.Role != UserConsts.USER_ROLE_TUTOR) return Forbid("Нет прав");
+                if (user == null || course == null) return NotFound("Нет такого юзера или курса");
+                if (user.Role != UserConsts.USER_ROLE_TUTOR) return Forbid("Нет прав");
 
 
-            course.Users.Add(user);
-            await _courseRepository.UpdateAsync(course);
+                course.Users.Add(user);
+                await _courseRepository.UpdateAsync(course);
 
-            return Ok();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(500, "Ошибка в логике");
+            }
         }
     }
 }

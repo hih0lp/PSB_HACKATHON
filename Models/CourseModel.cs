@@ -1,4 +1,6 @@
-﻿namespace PSB_HACKATHON.Models
+﻿using System.Text.Json.Serialization;
+
+namespace PSB_HACKATHON.Models
 {
     public class CourseModel
     {
@@ -7,6 +9,7 @@
         //public int UserId { get; set; }
         //public int AuthorId { get; set; `
         //public List<HeaderModel> Headers { get; set; }
+        [JsonIgnore]
         public List<UserModel>? Users { get; set; }
     }
 }
