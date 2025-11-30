@@ -36,14 +36,14 @@ namespace PSB_HACKATHON.Controllers
         /// </summary>
         /// <param name="userId">Идентификатор пользователя</param>
         /// <returns>Список курсов пользователя</returns>
-        //[HttpGet("get-courses/{userId}")]
-        //[ProducesResponseType(typeof(List<CourseModel>), StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public async Task<IActionResult> GetCoursesByUserId(int userId)
-        //{
-        //    return Json(await _courseRepository.GetByUserIdAsync(userId));
-        //}
+        [HttpGet("get-course/{courseId}")]
+        [ProducesResponseType(typeof(List<CourseModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetCoursesByUserId(string courseId)
+        {
+            return Json(await _courseRepository.GetAsync(courseId));
+        }
 
 
         /// <summary>
