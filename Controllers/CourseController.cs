@@ -140,8 +140,8 @@ namespace PSB_HACKATHON.Controllers
         /// <param name="courseId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        [HttpPost("get-cooperating/{courseId}/{userId}")]
-        public async Task<IActionResult> GetCooperating(string courseId, int userId)
+        [HttpPost("subscribe-on/{courseId}/{userId}")]
+        public async Task<IActionResult> SubscribeOn(string courseId, int userId)
         {
             var user = await _userRepository.GetUserAsync(userId);
             var course = await _courseRepository.GetAsync(courseId);
