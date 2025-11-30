@@ -149,6 +149,7 @@ namespace PSB_HACKATHON.Controllers
                 foreach (var tutor in courseTutors)
                 {
                     await _notificationService.SendNotificationsAsync(tutor.Login, notification);
+                    _logger.LogInformation("УВЕДЫ КИДАЮТСЯ");
 
                 }
                 return Ok();
