@@ -67,12 +67,12 @@ namespace PSB_HACKATHON.Controllers
                 user.Role = role;
                 await _db.SaveChangesAsync();   
 
-               /* var notification = new NotificationModel
+                var notification = new NotificationModel
                 {
                     NotificationMessage = $"Вам выдана новая роль: «{role}»",
                 };
                
-                await _notificationController.SendToUser(user.Login, notification);*/
+                await _notification.SendNotificationsAsync(user.Login, notification);
                 return Ok();
             }
             catch (Exception ex)

@@ -1,4 +1,3 @@
-//using ERP_Proflipper_NotificationService.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +28,7 @@ namespace PSB_HACKATHON.Controllers
 
         [HttpPost("user/{userLogin}")]
         [ServiceKeyAuthAttribute]
-        public async Task<IActionResult> SendToUser(string userLogin, [FromBody]NotificationModel request)//дождаться егорика
+        public async Task<IActionResult> SendToUser(string userLogin, [FromBody]NotificationModel request)
         {
 
             await _notificationService.SendNotificationsAsync(userLogin, request);
