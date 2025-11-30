@@ -1,21 +1,29 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.OpenApi;
 using PSB_HACKATHON;
 using PSB_HACKATHON.Interfaces;
 using PSB_HACKATHON.NotificationHub;
 using PSB_HACKATHON.Ports;
-using System.Reflection;
-using PSB_HACKATHON.Services; 
-
+using PSB_HACKATHON.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddControllers();
-builder.Services.AddCors();
 
-// Регистрация DB
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("https://psbsmartedu.ru", "https://www.psbsmartedu.ru")
+               .AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowCredentials(); 
+    });
+});
+
+
 builder.Services.AddDbContext<DB>(options =>
 {
     options.UseNpgsql(connectionString);
@@ -24,16 +32,12 @@ builder.Services.AddDbContext<DB>(options =>
 
 builder.Services.AddSignalR();
 
-// Регистрация сервисов
+
 builder.Services.AddTransient<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-
-// ВАЖНО: регистрируем NotificationService
 builder.Services.AddScoped<NotificationService>();
 
 
-// Swagger
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
@@ -58,10 +62,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.UseCors(builder => builder
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .AllowAnyOrigin());
+
+app.UseCors();
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
@@ -72,11 +74,7 @@ app.UseSwaggerUI(c =>
 
 app.MapControllers();
 app.UseAuthorization();
+
 app.MapHub<NotificationsHub>("/notifications");
-
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
