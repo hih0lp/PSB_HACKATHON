@@ -28,41 +28,26 @@ namespace PSB_HACKATHON.Controllers
                     Directory.CreateDirectory(path);
                 }
 
-                var incomingFileNames = files.Select(f => f.FileName).ToList();
-                var existingFiles = Directory.GetFiles(path)
-                    .Select(Path.GetFileName)
-                    .ToList();
-
-                var filesToDelete = existingFiles.Except(incomingFileNames).ToList();
-
-                foreach (var fileName in filesToDelete)
-                {
-                    var filePath = Path.Combine(path, fileName);
-                    if (System.IO.File.Exists(filePath))
-                    {
-                        System.IO.File.Delete(filePath);
-                    }
-                }
-
                 foreach (var file in files)
                 {
-                    var fileName = Path.GetFileName(file.FileName); 
-                    var fullFilePath = Path.Combine(path, fileName);
+                    var originalFileName = file.FileName; 
+                    var safeFileName = Path.GetFileName(originalFileName); 
+                    var fullFilePath = Path.Combine(path, safeFileName);
 
                     using (var fs = new FileStream(fullFilePath, FileMode.Create))
                     {
                         await file.CopyToAsync(fs);
                     }
 
-                    _logger.LogInformation("Сохранен файл: {FileName}", fileName);
+                    _logger.LogInformation("Сохранен: {FileName} -> {Path}", originalFileName, fullFilePath);
                 }
 
                 return Ok();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                _logger.LogError(ex, "Ошибка сохранения файлов для курса {CourseId}", courseId);
+                return BadRequest("Ошибка сохранения файлов");
             }
         }
 
