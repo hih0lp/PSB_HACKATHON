@@ -48,6 +48,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+app.UseWebSockets();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -55,11 +56,15 @@ app.UseRouting();
 
 
 app.UseCors(policy => policy
-    .SetIsOriginAllowed(origin => true)
+    .WithOrigins(
+        "https://front.psbsmartedu.ru",
+        "https://localhost:3000", // для разработки
+        "http://localhost:3000"   // для разработки
+    )
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials()
-    //.WithExposedHeaders("*")
+    .SetIsOriginAllowedToAllowWildcardSubdomains()
 );
 
 app.UseSwagger();
