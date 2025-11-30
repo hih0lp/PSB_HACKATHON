@@ -180,6 +180,9 @@ namespace PSB_HACKATHON.Controllers
                 var user = await _userRepository.GetUserAsync(userId);
                 var course = await _courseRepository.GetAsync(courseId);
 
+                _logger.LogInformation(user.Id.ToString());
+                _logger.LogInformation(course.Id);
+
                 if (user == null || course == null)
                     return NotFound("Нет такого юзера или курса");
 
