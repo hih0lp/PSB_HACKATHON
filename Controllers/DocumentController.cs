@@ -90,5 +90,71 @@ namespace PSB_HACKATHON.Controllers
                 return StatusCode(500, "Ошибка логики");
             }
         }
+
+        [HttpPost("save-homework/{courseId}/{lessonId}/{userId}")]
+        public async Task<IActionResult> SaveLessonHomework(string courseId, string lessonId, string userId)
+        {
+            IFormFileCollection files = Request.Form.Files;
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, "homeworks", lessonId, userId);
+
+            try
+            {
+                if (courseId == null || lessonId == null || userId == null)
+                    return BadRequest("Неправильные параметры запроса");
+
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                foreach (var file in files)
+                {
+                    var originalFileName = file.FileName;
+                    var safeFileName = Path.GetFileName(originalFileName);
+                    var fullFilePath = Path.Combine(path, safeFileName);
+
+                    using (var fs = new FileStream(fullFilePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fs);
+                    }
+
+                    _logger.LogInformation("Сохранено домашнее задание: {FileName} -> {Path} пользователем {UserId}",
+                        originalFileName, fullFilePath, userId);
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка сохранения домашних заданий для курса {CourseId}, урока {LessonId}, пользователя {UserId}",
+                    courseId, lessonId, userId);
+                return BadRequest("Ошибка сохранения домашних заданий");
+            }
+        }
+
+
+        [HttpGet("get-homework/{courseId}/{lessonId}/{userId}")]
+        public async Task<IActionResult> GetUserHomework(string courseId, string lessonId, string userId)
+        {
+            try
+            {
+                string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Documents", courseId, "homeworks", lessonId, userId);
+
+                if (!Directory.Exists(directoryPath))
+                    return NotFound("Домашние задания не найдены");
+
+                var absolutePaths = Directory.GetFiles(directoryPath)
+                                            .Select(filePath => filePath)
+                                            .ToList();
+
+                return Ok(absolutePaths);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка получения домашних заданий для курса {CourseId}, урока {LessonId}, пользователя {UserId}",
+                    courseId, lessonId, userId);
+                return StatusCode(500, "Ошибка получения домашних заданий");
+            }
+        }
     }
 }
