@@ -196,13 +196,13 @@ namespace PSB_HACKATHON.Controllers
             }
         }
 
-        [HttpPost("save-solution/{courseId}/{userId}")]
+       /* [HttpPost("save-solution/{courseId}/{userId}")]
         public async Task<IActionResult> SaveSolutionIfRequired(string courseId, int userId)
         {
             try
             {
                 if (courseId == null || userId == null) return BadRequest("Неправильные данные");
-
+                
 
 
 
@@ -212,6 +212,6 @@ namespace PSB_HACKATHON.Controllers
 
                 throw;
             }
-        }
+        }*/
     }
 }
