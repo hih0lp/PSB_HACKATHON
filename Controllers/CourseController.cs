@@ -180,38 +180,45 @@ namespace PSB_HACKATHON.Controllers
                 var user = await _userRepository.GetUserAsync(userId);
                 var course = await _courseRepository.GetAsync(courseId);
 
-                if (user == null || course == null) return NotFound("Нет такого юзера или курса");
-                //if (user.Role != UserConsts.USER_ROLE_TUTOR) return Unauthorized("Нет прав");
+                if (user == null || course == null)
+                    return NotFound("Нет такого юзера или курса");
 
+                if (user.Role != UserConsts.USER_ROLE_TUTOR)
+                    return Unauthorized("Нет прав");
 
+                // Проверяем, не подписан ли уже
+                if (user.Courses.Any(c => c.Id == courseId))
+                    return BadRequest("Уже подписан на этот курс");
+
+                // Добавляем курс пользователю
                 user.Courses.Add(course);
                 await _userRepository.UpdateAsync(user);
 
-                return Ok();
+                return Ok(new { message = "Успешно подписан на курс" });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError(ex, "Ошибка подписки на курс");
                 return StatusCode(500, "Ошибка в логике");
             }
         }
 
-       /* [HttpPost("save-solution/{courseId}/{userId}")]
-        public async Task<IActionResult> SaveSolutionIfRequired(string courseId, int userId)
-        {
-            try
-            {
-                if (courseId == null || userId == null) return BadRequest("Неправильные данные");
-                
+        /* [HttpPost("save-solution/{courseId}/{userId}")]
+         public async Task<IActionResult> SaveSolutionIfRequired(string courseId, int userId)
+         {
+             try
+             {
+                 if (courseId == null || userId == null) return BadRequest("Неправильные данные");
 
 
 
-            }
-            catch (Exception)
-            {
 
-                throw;
-            }
-        }*/
+             }
+             catch (Exception)
+             {
+
+                 throw;
+             }
+         }*/
     }
 }
