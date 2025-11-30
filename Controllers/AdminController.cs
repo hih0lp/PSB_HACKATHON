@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PSB_HACKATHON.Services;
 using PSB_HACKATHON.Controllers;
+using PSB_HACKATHON.Models;
+using PSB_HACKATHON.Services;
 
 namespace PSB_HACKATHON.Controllers
 {
@@ -64,8 +65,12 @@ namespace PSB_HACKATHON.Controllers
                 user.Role = "teacher";
                 await _db.SaveChangesAsync();
 
-                var message = _notification.CreateContentWithoutURI("Вам выдана новая роль: \"Преподаватель\"");
-          //      _notificationController.SendToUser(user.Login, );
+                var notification = new NotificationModel
+                {
+                    NotificationMessage = "Вам выдана новая роль: «Преподаватель»",
+                };
+               
+                await _notificationController.SendToUser(user.Login, notification);
                 return Ok();
             }
             catch (Exception ex)
