@@ -146,7 +146,7 @@ namespace PSB_HACKATHON.Controllers
                 var course = await _courseRepository.GetAsync(courseId);
 
                 if (user == null || course == null) return NotFound("Нет такого юзера или курса");
-                if (user.Role != UserConsts.USER_ROLE_TUTOR) return Forbid("Нет прав");
+                if (user.Role != UserConsts.USER_ROLE_TUTOR) return Unauthorized("Нет прав");
 
 
                 course.Users.Add(user);
