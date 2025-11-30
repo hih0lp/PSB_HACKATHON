@@ -10,14 +10,12 @@ namespace PSB_HACKATHON.Controllers
     {
         private readonly DB _db;
         private readonly NotificationService _notification;
-        private readonly NotificationController _notificationController;
         private ILogger<AdminController> _logger;
 
-        public AdminController(DB db, NotificationService notification, NotificationController notificationController, ILogger<AdminController> logger)
+        public AdminController(DB db, NotificationService notification, ILogger<AdminController> logger)
         {
             _db = db;
             _notification = notification;
-            _notificationController = notificationController;
             _logger = logger;
         }
 
@@ -60,20 +58,21 @@ namespace PSB_HACKATHON.Controllers
             try
             {
                 var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId);
-                if (user.Role != "admin") { return Unauthorized("Недостаточно прав"); }
+                var admin = await _db.Users.FirstOrDefaultAsync(u =>u.Id == adminId);
+                if (admin.Role != "admin") { return Unauthorized("Недостаточно прав"); }
                 if (user == null) { return NotFound("Пользователь не найден."); }
 
                 if (role != "student" && role != "admin" && role != "teacher") { return BadRequest($"Роли «{role}» не существует в системе"); }
 
                 user.Role = role;
-                await _db.SaveChangesAsync();
+                await _db.SaveChangesAsync();   
 
-                var notification = new NotificationModel
+               /* var notification = new NotificationModel
                 {
                     NotificationMessage = $"Вам выдана новая роль: «{role}»",
                 };
                
-                await _notificationController.SendToUser(user.Login, notification);
+                await _notificationController.SendToUser(user.Login, notification);*/
                 return Ok();
             }
             catch (Exception ex)

@@ -35,7 +35,7 @@ namespace PSB_HACKATHON.Controllers
                 await _db.Users.AddAsync(res);
                 int checkSave = await _db.SaveChangesAsync();
                 
-                if (checkSave > 0) { return Ok(); } 
+                if (checkSave > 0) { return Ok( new { userId = res.Id} ); } 
                 else { return BadRequest("Не удалось добавить пользователя, проверьте корректность полей"); }
             }
             catch (Exception ex) 
@@ -53,25 +53,15 @@ namespace PSB_HACKATHON.Controllers
             {
                 if (user == null) { return BadRequest("Пустое тело запроса"); }
 
-                bool userExists = await _db.Users
-                    .AnyAsync(u => u.Login == user.Login && u.Password == user.Password);
+                var check = await _db.Users.FirstOrDefaultAsync(u => u.Login == user.Login && u.Password == user.Password);
+                if (check == null) { return BadRequest("Неверный логин или пароль, попробуйте снова"); }
 
-                if (!userExists)
-                {
-                    return BadRequest("Неверный логин или пароль, попробуйте снова");
-                }
-
-                string userRole = await _db.Users
-                    .Where(u => u.Login == user.Login)
-                    .Select(u => u.Role)
-                    .FirstOrDefaultAsync();
-
-                return Ok(new { role = userRole});
+                return Ok(new { userId = check.Id, role = check.Role });
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Не удалось зарегестрировать пользователя");
-                return StatusCode(500, $"Возникла ошибка при регистрации, попробуйте позже\n{ex}");
+                _logger.LogError(ex, "Не удалось выполнить вход пользователя");
+                return StatusCode(500, "Возникла ошибка при входе, попробуйте позже");
             }
         }
     }

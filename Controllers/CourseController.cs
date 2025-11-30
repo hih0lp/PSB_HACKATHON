@@ -104,8 +104,7 @@ namespace PSB_HACKATHON.Controllers
         public async Task<IActionResult> GetCourse(string courseId)
         {
             var course = await _courseRepository.GetAsync(courseId);
-            if (course is null) return NotFound();
-
+            if (course is null) return NotFound("ЗНАЧИТ НЕТ ЗДЕСЬ ЭТОГО КУРСА");
 
             return Json(course);
         }

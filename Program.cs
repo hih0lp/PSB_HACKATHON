@@ -1,18 +1,21 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.OpenApi; 
+using Microsoft.OpenApi;
 using PSB_HACKATHON;
 using PSB_HACKATHON.Interfaces;
 using PSB_HACKATHON.NotificationHub;
 using PSB_HACKATHON.Ports;
 using System.Reflection;
+using PSB_HACKATHON.Services; 
+
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-
 builder.Services.AddControllers();
 builder.Services.AddCors();
+
+// Регистрация DB
 builder.Services.AddDbContext<DB>(options =>
 {
     options.UseNpgsql(connectionString);
@@ -20,17 +23,24 @@ builder.Services.AddDbContext<DB>(options =>
 }, ServiceLifetime.Scoped);
 
 builder.Services.AddSignalR();
+
+// Регистрация сервисов
 builder.Services.AddTransient<ICourseRepository, CourseRepository>();
-//builder.Services.AddScoped<IHeaderRepository, HeaderRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+
+// ВАЖНО: регистрируем NotificationService
+builder.Services.AddScoped<NotificationService>();
+
+
+// Swagger
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
         Title = "PSB HACKATHON API",
-        Description = "API ��� ��������������� ���������"
+        Description = "API для хакатона"
     });
 
     options.AddServer(new OpenApiServer
@@ -42,14 +52,10 @@ builder.Services.AddSwaggerGen(options =>
     options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 });
 
-
-
 var app = builder.Build();
-
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 
 app.UseCors(builder => builder
@@ -61,12 +67,13 @@ app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "PSB HACKATHON API v1");
-    c.RoutePrefix = "swagger"; 
+    c.RoutePrefix = "swagger";
 });
 
 app.MapControllers();
 app.UseAuthorization();
 app.MapHub<NotificationsHub>("/notifications");
+
 
 app.MapControllerRoute(
     name: "default",
