@@ -81,6 +81,8 @@ namespace PSB_HACKATHON.Controllers
                 var absolutePaths = Directory.GetFiles(directoryPath)
                                             .Select(filePath => filePath) // Просто возвращаем полный путь
                                             .ToList();
+                if (absolutePaths.Count == 0) return Json(new List<string>());
+
 
                 return Json(absolutePaths);
             }
@@ -146,8 +148,10 @@ namespace PSB_HACKATHON.Controllers
                 var absolutePaths = Directory.GetFiles(directoryPath)
                                             .Select(filePath => filePath)
                                             .ToList();
+                if (absolutePaths.Count == 0) return Json(new List<string>());
 
-                return Ok(absolutePaths);
+
+                return Json(absolutePaths);
             }
             catch (Exception ex)
             {
